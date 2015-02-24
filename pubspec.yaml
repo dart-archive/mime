@@ -2,7 +2,7 @@ name: mime
 version: 0.9.3
 author: Dart Team <misc@dartlang.org>
 description: Helper-package for working with MIME.
-homepage: http://www.dartlang.org
+homepage: https://www.github.com/dart-lang/mime
 environment:
   sdk: '>=1.0.0 <2.0.0'
 dev_dependencies:

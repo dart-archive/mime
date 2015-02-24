@@ -42,7 +42,12 @@ the length of the content of each part.
         .map((part) => part.fold(0, (p, d) => p + d))
         .listen((length) => print('Part with length $length'));
 
-Take a look at the `HttpBodyHandler` in the [http_server][1] package for
-handling different content types in a HTTP request.
+Take a look at the `HttpBodyHandler` in the [http_server][http_server]
+package for handling different content types in a HTTP request.
 
-[1]: https://pub.dartlang.org/packages/http_server
+## Features and bugs
+
+Please file feature requests and bugs at the [issue tracker][tracker].
+
+[tracker]: https://github.com/dart-lang/sample/issues
+[http_server]: https://pub.dartlang.org/packages/http_server
