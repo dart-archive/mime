@@ -4,6 +4,6 @@ author: Dart Team <misc@dartlang.org>
 description: Helper-package for working with MIME.
 homepage: https://www.github.com/dart-lang/mime
 environment:
-  sdk: '>=1.0.0 <2.0.0'
+  sdk: '>=1.8.3 <2.0.0'
 dev_dependencies:
-  unittest: '>=0.9.0 <0.12.0'
+  test: '^0.12.0'

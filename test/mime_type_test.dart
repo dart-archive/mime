@@ -4,7 +4,7 @@
 
 import 'dart:math' as math;
 
-import 'package:unittest/unittest.dart';
+import 'package:test/test.dart';
 import 'package:mime/mime.dart';
 import 'package:mime/src/magic_number.dart';
 
