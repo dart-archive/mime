@@ -8,10 +8,8 @@ import 'package:test/test.dart';
 import 'package:mime/mime.dart';
 import 'package:mime/src/magic_number.dart';
 
-void _expectMimeType(String path,
-                    String expectedMimeType,
-                    {List<int> headerBytes,
-                     MimeTypeResolver resolver}) {
+void _expectMimeType(String path, String expectedMimeType,
+    {List<int> headerBytes, MimeTypeResolver resolver}) {
   String mimeType;
   if (resolver == null) {
     mimeType = lookupMimeType(path, headerBytes: headerBytes);
@@ -83,21 +81,14 @@ void main() {
 
     test('with-mask', () {
       var resolver = new MimeTypeResolver.empty();
-      resolver.addMagicNumber([0x01, 0x02, 0x03],
-                              'my-mime-type',
-                              mask: [0x01, 0xFF, 0xFE]);
-      _expectMimeType('file',
-                     'my-mime-type',
-                     headerBytes: [0x01, 0x02, 0x03],
-                     resolver: resolver);
-      _expectMimeType('file',
-                     null,
-                     headerBytes: [0x01, 0x03, 0x03],
-                     resolver: resolver);
-      _expectMimeType('file',
-                     'my-mime-type',
-                     headerBytes: [0xFF, 0x02, 0x02],
-                     resolver: resolver);
+      resolver.addMagicNumber([0x01, 0x02, 0x03], 'my-mime-type',
+          mask: [0x01, 0xFF, 0xFE]);
+      _expectMimeType('file', 'my-mime-type',
+          headerBytes: [0x01, 0x02, 0x03], resolver: resolver);
+      _expectMimeType('file', null,
+          headerBytes: [0x01, 0x03, 0x03], resolver: resolver);
+      _expectMimeType('file', 'my-mime-type',
+          headerBytes: [0xFF, 0x02, 0x02], resolver: resolver);
     });
   });
 

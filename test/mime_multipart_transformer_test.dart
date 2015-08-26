@@ -8,9 +8,8 @@ import 'dart:math';
 import "package:test/test.dart";
 import "package:mime/mime.dart";
 
-void _writeInChunks(List<int> data,
-                    int chunkSize,
-                    StreamController<List<int>> controller) {
+void _writeInChunks(
+    List<int> data, int chunkSize, StreamController<List<int>> controller) {
   if (chunkSize == -1) chunkSize = data.length;
 
   int written = 0;
@@ -23,24 +22,15 @@ void _writeInChunks(List<int> data,
   controller.close();
 }
 
+enum TestMode { IMMEDIATE_LISTEN, DELAY_LISTEN, PAUSE_RESUME }
 
-enum TestMode {
-  IMMEDIATE_LISTEN,
-  DELAY_LISTEN,
-  PAUSE_RESUME
-}
-
-void _runParseTest(String message,
-                   String boundary,
-                   TestMode mode,
-                   [List<Map> expectedHeaders,
-                    List expectedParts,
-                    bool expectError = false]) {
+void _runParseTest(String message, String boundary, TestMode mode,
+    [List<Map> expectedHeaders, List expectedParts, bool expectError = false]) {
   Future testWrite(List<int> data, [int chunkSize = -1]) {
     StreamController controller = new StreamController(sync: true);
 
-    var stream = controller.stream.transform(
-        new MimeMultipartTransformer(boundary));
+    var stream =
+        controller.stream.transform(new MimeMultipartTransformer(boundary));
     int i = 0;
     var completer = new Completer();
     var futures = [];
@@ -53,20 +43,20 @@ void _runParseTest(String message,
         case TestMode.IMMEDIATE_LISTEN:
           futures.add(multipart.fold([], (buffer, data) => buffer..addAll(data))
               .then((data) {
-                if (expectedParts[part] != null) {
-                  expect(data, equals(expectedParts[part].codeUnits));
-                }
-              }));
+            if (expectedParts[part] != null) {
+              expect(data, equals(expectedParts[part].codeUnits));
+            }
+          }));
           break;
 
         case TestMode.DELAY_LISTEN:
           futures.add(new Future(() {
             return multipart.fold([], (buffer, data) => buffer..addAll(data))
                 .then((data) {
-                  if (expectedParts[part] != null) {
-                    expect(data, equals(expectedParts[part].codeUnits));
-                  }
-                });
+              if (expectedParts[part] != null) {
+                expect(data, equals(expectedParts[part].codeUnits));
+              }
+            });
           }));
           break;
 
@@ -75,18 +65,16 @@ void _runParseTest(String message,
           futures.add(completer.future);
           var buffer = [];
           var subscription;
-          subscription = multipart.listen(
-              (data) {
-                buffer.addAll(data);
-                subscription.pause();
-                new Future(() => subscription.resume());
-              },
-              onDone: () {
-                if (expectedParts[part] != null) {
-                  expect(buffer, equals(expectedParts[part].codeUnits));
-                }
-                completer.complete();
-              });
+          subscription = multipart.listen((data) {
+            buffer.addAll(data);
+            subscription.pause();
+            new Future(() => subscription.resume());
+          }, onDone: () {
+            if (expectedParts[part] != null) {
+              expect(buffer, equals(expectedParts[part].codeUnits));
+            }
+            completer.complete();
+          });
           break;
       }
     }, onError: (error) {
@@ -107,8 +95,8 @@ void _runParseTest(String message,
     var completer = new Completer();
     var controller = new StreamController(sync: true);
 
-    var stream = controller.stream.transform(
-        new MimeMultipartTransformer(boundary));
+    var stream =
+        controller.stream.transform(new MimeMultipartTransformer(boundary));
 
     var subscription;
     subscription = stream.first.then((multipart) {
@@ -129,13 +117,12 @@ void _runParseTest(String message,
     return completer.future;
   }
 
-  Future testCompletePartAfterCancel(List<int> data,
-                                     int parts,
-                                     [int chunkSize = -1]) {
+  Future testCompletePartAfterCancel(List<int> data, int parts,
+      [int chunkSize = -1]) {
     var completer = new Completer();
     var controller = new StreamController(sync: true);
-    var stream = controller.stream.transform(
-        new MimeMultipartTransformer(boundary));
+    var stream =
+        controller.stream.transform(new MimeMultipartTransformer(boundary));
     var subscription;
     int i = 0;
     var futures = [];
@@ -171,52 +158,52 @@ void _runParseTest(String message,
   // different chunks.
   List<int> data = message.codeUnits;
   test('test', () {
-    expect(Future.wait([
-        testWrite(data),
-        testWrite(data, 10),
-        testWrite(data, 2),
-        testWrite(data, 1),
-    ]), completes);
+    expect(
+        Future.wait([
+          testWrite(data),
+          testWrite(data, 10),
+          testWrite(data, 2),
+          testWrite(data, 1),
+        ]),
+        completes);
   });
 
   if (expectedParts.length > 0) {
     test('test-first-part-only', () {
-      expect(Future.wait([
-          testFirstPartOnly(data),
-          testFirstPartOnly(data, 10),
-          testFirstPartOnly(data, 2),
-          testFirstPartOnly(data, 1),
-      ]), completes);
+      expect(
+          Future.wait([
+            testFirstPartOnly(data),
+            testFirstPartOnly(data, 10),
+            testFirstPartOnly(data, 2),
+            testFirstPartOnly(data, 1),
+          ]),
+          completes);
     });
 
     test('test-n-parts-only', () {
       int numPartsExpected = expectedParts.length - 1;
       if (numPartsExpected == 0) numPartsExpected = 1;
 
-      expect(Future.wait([
-        testCompletePartAfterCancel(data, numPartsExpected),
-        testCompletePartAfterCancel(data, numPartsExpected, 10),
-        testCompletePartAfterCancel(data, numPartsExpected, 2),
-        testCompletePartAfterCancel(data, numPartsExpected, 1),
-      ]), completes);
+      expect(
+          Future.wait([
+            testCompletePartAfterCancel(data, numPartsExpected),
+            testCompletePartAfterCancel(data, numPartsExpected, 10),
+            testCompletePartAfterCancel(data, numPartsExpected, 2),
+            testCompletePartAfterCancel(data, numPartsExpected, 1),
+          ]),
+          completes);
     });
   }
 }
 
-void _testParse(String message,
-                String boundary,
-               [List<Map> expectedHeaders,
-                List expectedParts,
-                bool expectError = false]) {
-  _runParseTest(
-      message, boundary, TestMode.IMMEDIATE_LISTEN,
-      expectedHeaders, expectedParts, expectError);
-  _runParseTest(
-      message, boundary, TestMode.DELAY_LISTEN,
-      expectedHeaders, expectedParts, expectError);
-  _runParseTest(
-      message, boundary, TestMode.PAUSE_RESUME,
-      expectedHeaders, expectedParts, expectError);
+void _testParse(String message, String boundary,
+    [List<Map> expectedHeaders, List expectedParts, bool expectError = false]) {
+  _runParseTest(message, boundary, TestMode.IMMEDIATE_LISTEN, expectedHeaders,
+      expectedParts, expectError);
+  _runParseTest(message, boundary, TestMode.DELAY_LISTEN, expectedHeaders,
+      expectedParts, expectError);
+  _runParseTest(message, boundary, TestMode.PAUSE_RESUME, expectedHeaders,
+      expectedParts, expectError);
 }
 
 void _testParseValid() {
@@ -239,8 +226,10 @@ PGh0bWw+CiAgPGhlYWQ+CiAgPC9oZWFkPgogIDxib2R5PgogICAgPHA+VGhpcyBpcyB0aGUg
 Ym9keSBvZiB0aGUgbWVzc2FnZS48L3A+CiAgPC9ib2R5Pgo8L2h0bWw+Cg=\r
 --frontier--\r\n""";
   var headers1 = <String, String>{"content-type": "text/plain"};
-  var headers2 = <String, String>{"content-type": "application/octet-stream",
-                              "content-transfer-encoding": "base64"};
+  var headers2 = <String, String>{
+    "content-type": "application/octet-stream",
+    "content-transfer-encoding": "base64"
+  };
   var body1 = "This is the body of the message.";
   var body2 = """
 PGh0bWw+CiAgPGhlYWQ+CiAgPC9oZWFkPgogIDxib2R5PgogICAgPHA+VGhpcyBpcyB0aGUg
@@ -260,10 +249,11 @@ Content-Type: text/plain\r
 ... contents of file1.txt ...\r
 --AaB03x--\r\n""";
   headers1 = <String, String>{
-      "content-disposition": "form-data; name=\"submit-name\""};
+    "content-disposition": "form-data; name=\"submit-name\""
+  };
   headers2 = <String, String>{
-      "content-type": "text/plain",
-      "content-disposition": "form-data; name=\"files\"; filename=\"file1.txt\""
+    "content-type": "text/plain",
+    "content-disposition": "form-data; name=\"files\"; filename=\"file1.txt\""
   };
   body1 = "Larry";
   body2 = "... contents of file1.txt ...";
@@ -306,21 +296,23 @@ Content-Disposition: form-data; name=\"radio_input\"\r
 on\r
 ------WebKitFormBoundaryQ3cgYAmGRF8yOeYB--\r\n""";
   headers1 = <String, String>{
-      "content-disposition": "form-data; name=\"text_input\""};
+    "content-disposition": "form-data; name=\"text_input\""
+  };
   headers2 = <String, String>{
-      "content-disposition": "form-data; name=\"password_input\""};
+    "content-disposition": "form-data; name=\"password_input\""
+  };
   var headers3 = <String, String>{
-      "content-disposition": "form-data; name=\"checkbox_input\""};
+    "content-disposition": "form-data; name=\"checkbox_input\""
+  };
   var headers4 = <String, String>{
-      "content-disposition": "form-data; name=\"radio_input\""};
+    "content-disposition": "form-data; name=\"radio_input\""
+  };
   body1 = "text";
   body2 = "password";
   var body3 = "on";
   var body4 = "on";
-  _testParse(message,
-            "----WebKitFormBoundaryQ3cgYAmGRF8yOeYB",
-            [headers1, headers2, headers3, headers4],
-            [body1, body2, body3, body4]);
+  _testParse(message, "----WebKitFormBoundaryQ3cgYAmGRF8yOeYB",
+      [headers1, headers2, headers3, headers4], [body1, body2, body3, body4]);
 
   // Same form from Firefox.
   message = """
@@ -341,10 +333,11 @@ Content-Disposition: form-data; name=\"radio_input\"\r
 \r
 on\r
 -----------------------------52284550912143824192005403738--\r\n""";
-  _testParse(message,
-            "---------------------------52284550912143824192005403738",
-            [headers1, headers2, headers3, headers4],
-            [body1, body2, body3, body4]);
+  _testParse(
+      message,
+      "---------------------------52284550912143824192005403738",
+      [headers1, headers2, headers3, headers4],
+      [body1, body2, body3, body4]);
 
   // And Internet Explorer
   message = """
@@ -365,10 +358,8 @@ Content-Disposition: form-data; name=\"radio_input\"\r
 \r
 on\r
 -----------------------------7dc8f38c60326--\r\n""";
-  _testParse(message,
-            "---------------------------7dc8f38c60326",
-            [headers1, headers2, headers3, headers4],
-            [body1, body2, body3, body4]);
+  _testParse(message, "---------------------------7dc8f38c60326",
+      [headers1, headers2, headers3, headers4], [body1, body2, body3, body4]);
 
   // Test boundary prefix inside prefix and content.
   message = """
