@@ -12,12 +12,10 @@ void _writeInChunks(
     List<int> data, int chunkSize, StreamController<List<int>> controller) {
   if (chunkSize == -1) chunkSize = data.length;
 
-  int written = 0;
   for (int pos = 0; pos < data.length; pos += chunkSize) {
     int remaining = data.length - pos;
     int writeLength = min(chunkSize, remaining);
     controller.add(data.sublist(pos, pos + writeLength));
-    written += writeLength;
   }
   controller.close();
 }
@@ -98,8 +96,7 @@ void _runParseTest(String message, String boundary, TestMode mode,
     var stream =
         controller.stream.transform(new MimeMultipartTransformer(boundary));
 
-    var subscription;
-    subscription = stream.first.then((multipart) {
+    stream.first.then((multipart) {
       if (expectedHeaders != null) {
         expect(multipart.headers, equals(expectedHeaders[0]));
       }
