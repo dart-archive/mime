@@ -93,7 +93,7 @@ void main() {
   });
 
   test('default magic number', () {
-    var actualMaxBytes = DEFAULT_MAGIC_NUMBERS.fold(0, (previous, magic) {
+    var actualMaxBytes = DEFAULT_MAGIC_NUMBERS.fold(0, (num previous, magic) {
       return math.max(previous, magic.numbers.length);
     });
 

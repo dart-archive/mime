@@ -81,13 +81,13 @@ class BoundMultipartStream {
 
   int _controllerState = _CONTROLLER_STATE_IDLE;
 
-  StreamController _controller;
+  StreamController<MimeMultipart> _controller;
 
   Stream<MimeMultipart> get stream => _controller.stream;
 
   StreamSubscription _subscription;
 
-  StreamController _multipartController;
+  StreamController<List<int>> _multipartController;
   Map<String, String> _headers;
 
   int _state = _START;
