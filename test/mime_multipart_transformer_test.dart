@@ -127,7 +127,7 @@ void _runParseTest(String message, String boundary, TestMode mode,
       int partIndex = i;
 
       if (partIndex >= parts) {
-        throw 'Expected no more parts, but got one.';
+        throw new StateError('Expected no more parts, but got one.');
       }
 
       if (expectedHeaders != null) {

@@ -6,8 +6,8 @@ library mime.bound_multipart_stream;
 import 'dart:async';
 import 'dart:convert';
 
-import 'mime_shared.dart';
 import 'char_code.dart';
+import 'mime_shared.dart';
 
 // Bytes for '()<>@,;:\\"/[]?={} \t'.
 const _SEPARATORS = const [40, 41, 60, 62, 64, 44, 59, 58, 92, 34, 47, 91, 93,
