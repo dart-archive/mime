@@ -6,12 +6,31 @@ library mime.bound_multipart_stream;
 import 'dart:async';
 import 'dart:convert';
 
-import 'mime_shared.dart';
 import 'char_code.dart';
+import 'mime_shared.dart';
 
 // Bytes for '()<>@,;:\\"/[]?={} \t'.
-const _SEPARATORS = const [40, 41, 60, 62, 64, 44, 59, 58, 92, 34, 47, 91, 93,
-                           63, 61, 123, 125, 32, 9];
+const _SEPARATORS = const [
+  40,
+  41,
+  60,
+  62,
+  64,
+  44,
+  59,
+  58,
+  92,
+  34,
+  47,
+  91,
+  93,
+  63,
+  61,
+  123,
+  125,
+  32,
+  9
+];
 
 bool _isTokenChar(int byte) {
   return byte > 31 && byte < 128 && _SEPARATORS.indexOf(byte) == -1;
@@ -102,25 +121,27 @@ class BoundMultipartStream {
     _controller = new StreamController(
         sync: true,
         onPause: _pauseStream,
-        onResume: _resumeStream, onCancel: () {
-      _controllerState = _CONTROLLER_STATE_CANCELED;
-      _tryPropagateControllerState();
-    }, onListen: () {
-      _controllerState = _CONTROLLER_STATE_ACTIVE;
-      _subscription = stream.listen((data) {
-        assert(_buffer == null);
-        _subscription.pause();
-        _buffer = data;
-        _index = 0;
-        _parse();
-      }, onDone: () {
-        if (_state != _DONE) {
-          _controller
-              .addError(new MimeMultipartException("Bad multipart ending"));
-        }
-        _controller.close();
-      }, onError: _controller.addError);
-    });
+        onResume: _resumeStream,
+        onCancel: () {
+          _controllerState = _CONTROLLER_STATE_CANCELED;
+          _tryPropagateControllerState();
+        },
+        onListen: () {
+          _controllerState = _CONTROLLER_STATE_ACTIVE;
+          _subscription = stream.listen((data) {
+            assert(_buffer == null);
+            _subscription.pause();
+            _buffer = data;
+            _index = 0;
+            _parse();
+          }, onDone: () {
+            if (_state != _DONE) {
+              _controller
+                  .addError(new MimeMultipartException("Bad multipart ending"));
+            }
+            _controller.close();
+          }, onError: _controller.addError);
+        });
   }
 
   void _resumeStream() {
@@ -300,9 +321,13 @@ class BoundMultipartStream {
 
         case _HEADER_ENDING:
           _expectByteValue(byte, CharCode.LF);
-          _multipartController = new StreamController(sync: true, onListen: () {
-            if (_subscription.isPaused) _subscription.resume();
-          }, onPause: _subscription.pause, onResume: _subscription.resume);
+          _multipartController = new StreamController(
+              sync: true,
+              onListen: () {
+                if (_subscription.isPaused) _subscription.resume();
+              },
+              onPause: _subscription.pause,
+              onResume: _subscription.resume);
           _controller
               .add(new _MimeMultipart(_headers, _multipartController.stream));
           _headers = null;

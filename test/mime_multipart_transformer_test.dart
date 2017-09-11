@@ -39,8 +39,8 @@ void _runParseTest(String message, String boundary, TestMode mode,
       }
       switch (mode) {
         case TestMode.IMMEDIATE_LISTEN:
-          futures.add(multipart.fold([], (buffer, data) => buffer..addAll(data))
-              .then((data) {
+          futures.add(multipart
+              .fold([], (buffer, data) => buffer..addAll(data)).then((data) {
             if (expectedParts[part] != null) {
               expect(data, equals(expectedParts[part].codeUnits));
             }
@@ -49,8 +49,8 @@ void _runParseTest(String message, String boundary, TestMode mode,
 
         case TestMode.DELAY_LISTEN:
           futures.add(new Future(() {
-            return multipart.fold([], (buffer, data) => buffer..addAll(data))
-                .then((data) {
+            return multipart
+                .fold([], (buffer, data) => buffer..addAll(data)).then((data) {
               if (expectedParts[part] != null) {
                 expect(data, equals(expectedParts[part].codeUnits));
               }
@@ -127,7 +127,7 @@ void _runParseTest(String message, String boundary, TestMode mode,
       int partIndex = i;
 
       if (partIndex >= parts) {
-        throw 'Expected no more parts, but got one.';
+        throw new StateError('Expected no more parts, but got one.');
       }
 
       if (expectedHeaders != null) {

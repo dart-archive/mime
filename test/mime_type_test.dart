@@ -47,22 +47,46 @@ void main() {
     });
 
     test('by-header-bytes', () {
-      _expectMimeType('file.jpg',
-                     'image/png',
-                     headerBytes: [0x89, 0x50, 0x4E, 0x47,
-                                   0x0D, 0x0A, 0x1A, 0x0A]);
-      _expectMimeType('file.jpg',
-                     'image/gif',
-                     headerBytes: [0x47, 0x49, 0x46, 0x38, 0x39,
-                                   0x61, 0x0D, 0x0A, 0x1A, 0x0A]);
-      _expectMimeType('file.gif',
-                     'image/jpeg',
-                     headerBytes: [0xFF, 0xD8, 0x46, 0x38, 0x39,
-                                   0x61, 0x0D, 0x0A, 0x1A, 0x0A]);
-      _expectMimeType('file.mp4',
-                     'video/mp4',
-                     headerBytes: [0x00, 0x00, 0x00, 0x04, 0x66, 0x74,
-                                   0x79, 0x70, 0x33, 0x67, 0x70, 0x35]);
+      _expectMimeType('file.jpg', 'image/png',
+          headerBytes: [0x89, 0x50, 0x4E, 0x47, 0x0D, 0x0A, 0x1A, 0x0A]);
+      _expectMimeType('file.jpg', 'image/gif', headerBytes: [
+        0x47,
+        0x49,
+        0x46,
+        0x38,
+        0x39,
+        0x61,
+        0x0D,
+        0x0A,
+        0x1A,
+        0x0A
+      ]);
+      _expectMimeType('file.gif', 'image/jpeg', headerBytes: [
+        0xFF,
+        0xD8,
+        0x46,
+        0x38,
+        0x39,
+        0x61,
+        0x0D,
+        0x0A,
+        0x1A,
+        0x0A
+      ]);
+      _expectMimeType('file.mp4', 'video/mp4', headerBytes: [
+        0x00,
+        0x00,
+        0x00,
+        0x04,
+        0x66,
+        0x74,
+        0x79,
+        0x70,
+        0x33,
+        0x67,
+        0x70,
+        0x35
+      ]);
     });
   });
 
