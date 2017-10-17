@@ -64,5 +64,6 @@ const List<MagicNumber> DEFAULT_MAGIC_NUMBERS = const [
     0xFF,
     0xFF,
     0xFF
-  ])
+  ]),
+  const MagicNumber('model/gltf-binary', const [0x46, 0x54, 0x6C, 0x67]),
 ];
