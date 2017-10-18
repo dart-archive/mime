@@ -283,6 +283,8 @@ final Map<String, String> defaultExtensionMap = <String, String>{
   'ghf': 'application/vnd.groove-help',
   'gif': 'image/gif',
   'gim': 'application/vnd.groove-identity-message',
+  'glb': 'model/gltf-binary',
+  'gltf': 'model/gltf+json',
   'gml': 'application/gml+xml',
   'gmx': 'application/vnd.gmx',
   'gnumeric': 'application/x-gnumeric',
