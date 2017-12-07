@@ -1,3 +1,7 @@
+# 0.9.5
+
+* Add support for the WebAssembly format.
+
 # 0.9.4
 
 * Updated Dart SDK requirement to `>= 1.8.3 <2.0.0`
