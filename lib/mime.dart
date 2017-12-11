@@ -14,6 +14,7 @@
  */
 library mime;
 
+export 'src/extension.dart';
 export 'src/mime_multipart_transformer.dart';
 export 'src/mime_shared.dart';
 export 'src/mime_type.dart';

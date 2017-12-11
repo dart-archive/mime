@@ -48,6 +48,25 @@ request
 Take a look at the `HttpBodyHandler` in the [http_server][http_server]
 package for handling different content types in an HTTP request.
 
+## Determining file extension by MIME type
+
+The top level function `lookupExtension` can be used to determine the
+file extension of a given MIME type.
+
+```dart
+print(lookupExtension('text/html'));  // Will print html
+print(lookupExtension('image/jpeg'));  // Will print jpg
+print(lookupExtension('application/pdf'));  // Will print pdf
+```
+
+You can override the default MIME type-extension mapping using
+`addMimeType`:
+
+```dart
+addMimeType('image/jpeg', 'jpeg');
+print(lookupExtension('image/jpeg'));  // Will print jpeg
+```
+
 ## Features and bugs
 
 Please file feature requests and bugs at the [issue tracker][tracker].
