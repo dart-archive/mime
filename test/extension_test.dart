@@ -19,7 +19,6 @@ void main() {
       expect(lookupExtension('text/html'), equals('html'));
       expect(lookupExtension('text/plain'), equals('txt'));
       expect(lookupExtension('text/x-c'), equals('c'));
-
     });
 
     test('invalid-mime-type', () {
