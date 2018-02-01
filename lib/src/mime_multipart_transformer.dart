@@ -30,7 +30,7 @@ Uint8List _getBoundary(String boundary) {
  * of them streaming the multipart data.
  */
 class MimeMultipartTransformer
-    implements StreamTransformer<List<int>, MimeMultipart> {
+    extends StreamTransformerBase<List<int>, MimeMultipart> {
   final List<int> _boundary;
 
   /**
