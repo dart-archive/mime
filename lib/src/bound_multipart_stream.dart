@@ -304,8 +304,8 @@ class BoundMultipartStream {
           if (byte == CharCode.SP || byte == CharCode.HT) {
             _state = _HEADER_VALUE_START;
           } else {
-            String headerField = UTF8.decode(_headerField);
-            String headerValue = UTF8.decode(_headerValue);
+            String headerField = utf8.decode(_headerField);
+            String headerValue = utf8.decode(_headerValue);
             _headers[headerField.toLowerCase()] = headerValue;
             _headerField.clear();
             _headerValue.clear();
