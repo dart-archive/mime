@@ -1,6 +1,6 @@
 ## 0.9.6+1
 
-- Updated SDK version to 2.0.0-dev.17.0
+- Stop using deprecated constants from the SDK.
 
 # 0.9.6
 
