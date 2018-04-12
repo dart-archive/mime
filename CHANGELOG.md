@@ -1,3 +1,7 @@
+## 0.9.6+1
+
+- Updated SDK version to 2.0.0-dev.17.0
+
 # 0.9.6
 
 * Updates to support Dart 2.0 core library changes (wave
