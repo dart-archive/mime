@@ -1,4 +1,4 @@
-## 0.9.6+1
+# 0.9.6+1
 
 - Stop using deprecated constants from the SDK.
 
