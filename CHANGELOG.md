@@ -1,3 +1,7 @@
+# 0.9.6+1
+
+- Stop using deprecated constants from the SDK.
+
 # 0.9.6
 
 * Updates to support Dart 2.0 core library changes (wave
