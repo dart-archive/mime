@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/dart-lang/mime.svg?branch=master)](https://travis-ci.org/dart-lang/mime)
+
 Package for working with MIME type definitions and for processing
 streams of MIME multipart media types.
 
