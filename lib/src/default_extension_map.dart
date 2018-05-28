@@ -150,7 +150,7 @@ final Map<String, String> defaultExtensionMap = <String, String>{
   'cxx': 'text/x-c',
   'dae': 'model/vnd.collada+xml',
   'daf': 'application/vnd.mobius.daf',
-  'dart': 'application/dart',
+  'dart': 'text/x-dart',
   'dataless': 'application/vnd.fdsn.seed',
   'davmount': 'application/davmount+xml',
   'dbk': 'application/docbook+xml',

@@ -23,9 +23,9 @@ void _expectMimeType(String path, String expectedMimeType,
 void main() {
   group('global-lookup', () {
     test('by-path', () {
-      _expectMimeType('file.dart', 'application/dart');
+      _expectMimeType('file.dart', 'text/x-dart');
       // Test mixed-case
-      _expectMimeType('file.DaRT', 'application/dart');
+      _expectMimeType('file.DaRT', 'text/x-dart');
       _expectMimeType('file.html', 'text/html');
       _expectMimeType('file.xhtml', 'application/xhtml+xml');
       _expectMimeType('file.jpeg', 'image/jpeg');
