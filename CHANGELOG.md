@@ -1,6 +1,10 @@
-# 0.9.6+2
+# 0.9.6+3
 
 * Change the mime type for Dart source from `application/dart` to `text/x-dart`.
+
+# 0.9.6+2
+
+* Set max SDK version to `<3.0.0`, and adjust other dependencies.
 
 # 0.9.6+1
 
