@@ -1,12 +1,16 @@
+# 0.9.6+2
+
+* Change the mime type for Dart source from `application/dart` to `text/x-dart`.
+
 # 0.9.6+1
 
-- Stop using deprecated constants from the SDK.
+* Stop using deprecated constants from the SDK.
 
 # 0.9.6
 
 * Updates to support Dart 2.0 core library changes (wave
   2.2). See [issue 31847][sdk#31847] for details.
-  
+
   [sdk#31847]: https://github.com/dart-lang/sdk/issues/31847
 
 # 0.9.5
