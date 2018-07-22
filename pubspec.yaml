@@ -1,5 +1,5 @@
 name: mime
-version: 0.9.6+2
+version: 0.9.6+3
 
 description: Helper-package for working with MIME.
 author: Dart Team <misc@dartlang.org>
