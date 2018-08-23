@@ -133,7 +133,11 @@ class BoundMultipartStream {
             _subscription.pause();
             _buffer = data;
             _index = 0;
-            _parse();
+            try {
+              _parse();
+            } catch (e, st) {
+              _controller.addError(e, st);
+            }
           }, onDone: () {
             if (_state != _DONE) {
               _controller
