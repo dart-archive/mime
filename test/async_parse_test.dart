@@ -12,10 +12,12 @@ Content-Type: application/json; charset=utf-8',\r
 [\r
 {"key": "value1"}]\r
 --xxx--\r\n
-""".codeUnits;
+"""
+        .codeUnits;
 
     try {
-      final controller = Stream.fromIterable([input]).transform(MimeMultipartTransformer("xxx"));
+      final controller = Stream.fromIterable([input])
+          .transform(MimeMultipartTransformer("xxx"));
       await controller.toList();
       fail('unreachable');
     } on MimeMultipartException catch (e) {
