@@ -52,18 +52,18 @@ void main() {
         controller.stream.transform(MimeMultipartTransformer("xxx"));
     controller.add(_malformedSecondPart.sublist(0, 10));
 
-    // push the chunk to the next event
-    Future(() {
-      controller.add(_malformedSecondPart.sublist(10));
-      controller.close();
-    });
-
     final parts = <MimeMultipart>[];
     var error;
     transformedStream.listen((part) {
       parts.add(part);
     }, onError: (e, st) {
       error = e;
+    });
+
+    // push the chunk to the next event
+    Future(() {
+      controller.add(_malformedSecondPart.sublist(10));
+      controller.close();
     });
 
     await controller.done;

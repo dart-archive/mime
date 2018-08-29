@@ -140,12 +140,12 @@ class BoundMultipartStream {
               _controller.addError(e, st);
             }
           }, onDone: () {
-            if (_state != _DONE && _state != _FAIL) {
+            if (_state != _DONE) {
               _controller
                   .addError(new MimeMultipartException("Bad multipart ending"));
             }
             _controller.close();
-          }, onError: _controller.addError);
+          }, onError: _controller.addError, cancelOnError: true);
         });
   }
 
