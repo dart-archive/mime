@@ -136,10 +136,11 @@ class BoundMultipartStream {
             try {
               _parse();
             } catch (e, st) {
+              _state = _FAIL;
               _controller.addError(e, st);
             }
           }, onDone: () {
-            if (_state != _DONE) {
+            if (_state != _DONE && _state != _FAIL) {
               _controller
                   .addError(new MimeMultipartException("Bad multipart ending"));
             }
