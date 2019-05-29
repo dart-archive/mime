@@ -1,7 +1,9 @@
 name: mime
 version: 0.9.7-dev
 
-description: Helper-package for working with MIME.
+description: >-
+  Utilities for handling media (MIME) types, including determining a type from
+  a file extension and file contents.
 author: Dart Team <misc@dartlang.org>
 homepage: https://www.github.com/dart-lang/mime
 
