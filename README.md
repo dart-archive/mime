@@ -54,5 +54,5 @@ package for handling different content types in an HTTP request.
 
 Please file feature requests and bugs at the [issue tracker][tracker].
 
-[tracker]: https://github.com/dart-lang/sample/issues
-[http_server]: https://pub.dartlang.org/packages/http_server
+[tracker]: https://github.com/dart-lang/mime/issues
+[http_server]: https://pub.dev/packages/http_server
