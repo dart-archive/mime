@@ -92,19 +92,19 @@ void main() {
 
   group('custom-resolver', () {
     test('override-extension', () {
-      var resolver = new MimeTypeResolver();
+      var resolver = MimeTypeResolver();
       resolver.addExtension('jpg', 'my-mime-type');
       _expectMimeType('file.jpg', 'my-mime-type', resolver: resolver);
     });
 
     test('fallthrough-extension', () {
-      var resolver = new MimeTypeResolver();
+      var resolver = MimeTypeResolver();
       resolver.addExtension('jpg2', 'my-mime-type');
       _expectMimeType('file.jpg', 'image/jpeg', resolver: resolver);
     });
 
     test('with-mask', () {
-      var resolver = new MimeTypeResolver.empty();
+      var resolver = MimeTypeResolver.empty();
       resolver.addMagicNumber([0x01, 0x02, 0x03], 'my-mime-type',
           mask: [0x01, 0xFF, 0xFE]);
       _expectMimeType('file', 'my-mime-type',

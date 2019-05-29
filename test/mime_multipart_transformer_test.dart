@@ -25,12 +25,12 @@ enum TestMode { IMMEDIATE_LISTEN, DELAY_LISTEN, PAUSE_RESUME }
 void _runParseTest(String message, String boundary, TestMode mode,
     [List<Map> expectedHeaders, List expectedParts, bool expectError = false]) {
   Future testWrite(List<int> data, [int chunkSize = -1]) {
-    var controller = new StreamController<List<int>>(sync: true);
+    var controller = StreamController<List<int>>(sync: true);
 
     var stream =
-        controller.stream.transform(new MimeMultipartTransformer(boundary));
+        controller.stream.transform(MimeMultipartTransformer(boundary));
     int i = 0;
-    var completer = new Completer();
+    var completer = Completer();
     var futures = <Future>[];
     stream.listen((multipart) {
       int part = i++;
@@ -48,7 +48,7 @@ void _runParseTest(String message, String boundary, TestMode mode,
           break;
 
         case TestMode.DELAY_LISTEN:
-          futures.add(new Future(() {
+          futures.add(Future(() {
             return multipart
                 .fold([], (buffer, data) => buffer..addAll(data)).then((data) {
               if (expectedParts[part] != null) {
@@ -59,14 +59,14 @@ void _runParseTest(String message, String boundary, TestMode mode,
           break;
 
         case TestMode.PAUSE_RESUME:
-          var completer = new Completer();
+          var completer = Completer();
           futures.add(completer.future);
           var buffer = [];
           var subscription;
           subscription = multipart.listen((data) {
             buffer.addAll(data);
             subscription.pause();
-            new Future(() => subscription.resume());
+            Future(() => subscription.resume());
           }, onDone: () {
             if (expectedParts[part] != null) {
               expect(buffer, equals(expectedParts[part].codeUnits));
@@ -90,11 +90,11 @@ void _runParseTest(String message, String boundary, TestMode mode,
   }
 
   Future testFirstPartOnly(List<int> data, [int chunkSize = -1]) {
-    var completer = new Completer();
-    var controller = new StreamController<List<int>>(sync: true);
+    var completer = Completer();
+    var controller = StreamController<List<int>>(sync: true);
 
     var stream =
-        controller.stream.transform(new MimeMultipartTransformer(boundary));
+        controller.stream.transform(MimeMultipartTransformer(boundary));
 
     stream.first.then((multipart) {
       if (expectedHeaders != null) {
@@ -116,10 +116,10 @@ void _runParseTest(String message, String boundary, TestMode mode,
 
   Future testCompletePartAfterCancel(List<int> data, int parts,
       [int chunkSize = -1]) {
-    var completer = new Completer();
-    var controller = new StreamController<List<int>>(sync: true);
+    var completer = Completer();
+    var controller = StreamController<List<int>>(sync: true);
     var stream =
-        controller.stream.transform(new MimeMultipartTransformer(boundary));
+        controller.stream.transform(MimeMultipartTransformer(boundary));
     var subscription;
     int i = 0;
     var futures = <Future>[];
@@ -127,7 +127,7 @@ void _runParseTest(String message, String boundary, TestMode mode,
       int partIndex = i;
 
       if (partIndex >= parts) {
-        throw new StateError('Expected no more parts, but got one.');
+        throw StateError('Expected no more parts, but got one.');
       }
 
       if (expectedHeaders != null) {
@@ -165,7 +165,7 @@ void _runParseTest(String message, String boundary, TestMode mode,
         completes);
   });
 
-  if (expectedParts.length > 0) {
+  if (expectedParts.isNotEmpty) {
     test('test-first-part-only', () {
       expect(
           Future.wait([

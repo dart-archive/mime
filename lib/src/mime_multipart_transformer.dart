@@ -13,7 +13,7 @@ import 'mime_shared.dart';
 Uint8List _getBoundary(String boundary) {
   var charCodes = boundary.codeUnits;
 
-  var boundaryList = new Uint8List(4 + charCodes.length);
+  var boundaryList = Uint8List(4 + charCodes.length);
   // Set-up the matching boundary preceding it with CRLF and two
   // dashes.
   boundaryList[0] = CharCode.CR;
@@ -24,24 +24,20 @@ Uint8List _getBoundary(String boundary) {
   return boundaryList;
 }
 
-/**
- * Parser for MIME multipart types of data as described in RFC 2046
- * section 5.1.1. The data is transformed into [MimeMultipart] objects, each
- * of them streaming the multipart data.
- */
+/// Parser for MIME multipart types of data as described in RFC 2046
+/// section 5.1.1. The data is transformed into [MimeMultipart] objects, each
+/// of them streaming the multipart data.
 class MimeMultipartTransformer
     extends StreamTransformerBase<List<int>, MimeMultipart> {
   final List<int> _boundary;
 
-  /**
-   * Construct a new MIME multipart parser with the boundary
-   * [boundary]. The boundary should be as specified in the content
-   * type parameter, that is without the -- prefix.
-   */
+  /// Construct a new MIME multipart parser with the boundary
+  /// [boundary]. The boundary should be as specified in the content
+  /// type parameter, that is without the -- prefix.
   MimeMultipartTransformer(String boundary)
       : _boundary = _getBoundary(boundary);
 
   Stream<MimeMultipart> bind(Stream<List<int>> stream) {
-    return new BoundMultipartStream(_boundary, stream).stream;
+    return BoundMultipartStream(_boundary, stream).stream;
   }
 }

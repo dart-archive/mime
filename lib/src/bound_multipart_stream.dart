@@ -10,7 +10,7 @@ import 'char_code.dart';
 import 'mime_shared.dart';
 
 // Bytes for '()<>@,;:\\"/[]?={} \t'.
-const _SEPARATORS = const [
+const _SEPARATORS = [
   40,
   41,
   60,
@@ -33,7 +33,7 @@ const _SEPARATORS = const [
 ];
 
 bool _isTokenChar(int byte) {
-  return byte > 31 && byte < 128 && _SEPARATORS.indexOf(byte) == -1;
+  return byte > 31 && byte < 128 && !_SEPARATORS.contains(byte);
 }
 
 int _toLowerCase(int byte) {
@@ -45,13 +45,13 @@ int _toLowerCase(int byte) {
 
 void _expectByteValue(int val1, int val2) {
   if (val1 != val2) {
-    throw new MimeMultipartException("Failed to parse multipart mime 1");
+    throw MimeMultipartException("Failed to parse multipart mime 1");
   }
 }
 
 void _expectWhitespace(int byte) {
   if (byte != CharCode.SP && byte != CharCode.HT) {
-    throw new MimeMultipartException("Failed to parse multipart mime 2");
+    throw MimeMultipartException("Failed to parse multipart mime 2");
   }
 }
 
@@ -118,7 +118,7 @@ class BoundMultipartStream {
   List<int> _buffer;
 
   BoundMultipartStream(this._boundary, Stream<List<int>> stream) {
-    _controller = new StreamController(
+    _controller = StreamController(
         sync: true,
         onPause: _pauseStream,
         onResume: _resumeStream,
@@ -137,7 +137,7 @@ class BoundMultipartStream {
           }, onDone: () {
             if (_state != _DONE) {
               _controller
-                  .addError(new MimeMultipartException("Bad multipart ending"));
+                  .addError(MimeMultipartException("Bad multipart ending"));
             }
             _controller.close();
           }, onError: _controller.addError);
@@ -168,7 +168,7 @@ class BoundMultipartStream {
           _subscription.cancel();
           break;
         default:
-          throw new StateError("This code should never be reached.");
+          throw StateError("This code should never be reached.");
       }
     }
   }
@@ -256,7 +256,7 @@ class BoundMultipartStream {
           break;
 
         case _HEADER_START:
-          _headers = new Map<String, String>();
+          _headers = Map<String, String>();
           if (byte == CharCode.CR) {
             _state = _HEADER_ENDING;
           } else {
@@ -271,7 +271,7 @@ class BoundMultipartStream {
             _state = _HEADER_VALUE_START;
           } else {
             if (!_isTokenChar(byte)) {
-              throw new MimeMultipartException("Invalid header field name");
+              throw MimeMultipartException("Invalid header field name");
             }
             _headerField.add(_toLowerCase(byte));
           }
@@ -321,7 +321,7 @@ class BoundMultipartStream {
 
         case _HEADER_ENDING:
           _expectByteValue(byte, CharCode.LF);
-          _multipartController = new StreamController(
+          _multipartController = StreamController(
               sync: true,
               onListen: () {
                 if (_subscription.isPaused) _subscription.resume();
@@ -329,7 +329,7 @@ class BoundMultipartStream {
               onPause: _subscription.pause,
               onResume: _subscription.resume);
           _controller
-              .add(new _MimeMultipart(_headers, _multipartController.stream));
+              .add(_MimeMultipart(_headers, _multipartController.stream));
           _headers = null;
           _state = _CONTENT;
           contentStartIndex = _index + 1;

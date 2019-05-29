@@ -13,10 +13,8 @@ class MimeMultipartException implements Exception {
   String toString() => "MimeMultipartException: $message";
 }
 
-/**
- * A Mime Multipart class representing each part parsed by
- * [MimeMultipartTransformer]. The data is streamed in as it become available.
- */
+/// A Mime Multipart class representing each part parsed by
+/// [MimeMultipartTransformer]. The data is streamed in as it become available.
 abstract class MimeMultipart extends Stream<List<int>> {
   Map<String, String> get headers;
 }
