@@ -14,9 +14,18 @@ the top level function `lookupMimeType`. This builtin instance has
 the most common file name extensions and magic bytes registered.
 
 ```dart
-print(lookupMimeType('test.html'));  // Will print text/html
-print(lookupMimeType('test', [0xFF, 0xD8]));  // Will print image/jpeg
-print(lookupMimeType('test.html', [0xFF, 0xD8]));  // Will print image/jpeg
+import 'package:mime/mime.dart';
+
+void main() {
+  print(lookupMimeType('test.html'));
+  // text/html
+
+  print(lookupMimeType('test', headerBytes: [0xFF, 0xD8]));
+  // image/jpeg
+
+  print(lookupMimeType('test.html', headerBytes: [0xFF, 0xD8]));
+  // image/jpeg
+}
 ```
 
 You can build you own resolver by creating an instance of
