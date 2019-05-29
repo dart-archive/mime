@@ -7,9 +7,6 @@
 ///
 /// More details, including a list of types, are in the Wikipedia article
 /// [Internet media type](http://en.wikipedia.org/wiki/Internet_media_type).
-/// For information on installing and importing this library, see the
-/// [mime package on pub.dev]
-/// (https://pub.dev/packages/mime).
 library mime;
 
 export 'src/mime_multipart_transformer.dart';
