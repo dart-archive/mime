@@ -1,6 +1,8 @@
 # 0.9.6+3
 
 * Change the mime type for Dart source from `application/dart` to `text/x-dart`.
+* Add example.
+* Fix links and code in README.
 
 # 0.9.6+2
 

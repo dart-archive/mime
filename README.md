@@ -1,3 +1,4 @@
+[![Pub Package](https://img.shields.io/pub/v/mime.svg)](https://pub.dev/packages/mime)
 [![Build Status](https://travis-ci.org/dart-lang/mime.svg?branch=master)](https://travis-ci.org/dart-lang/mime)
 
 Package for working with MIME type definitions and for processing
