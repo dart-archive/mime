@@ -418,6 +418,7 @@ final Map<String, String> defaultExtensionMap = <String, String>{
   'm3u8': 'application/vnd.apple.mpegurl',
   'm4u': 'video/vnd.mpegurl',
   'm4v': 'video/x-m4v',
+  'm4a': 'audio/mp4', // audio/x-m4a is NOT a valid mime type (https://www.iana.org/assignments/media-types/media-types.xhtml) (Discussion: https://github.com/Sigil-Ebook/Sigil/issues/198)
   'ma': 'application/mathematica',
   'mads': 'application/mads+xml',
   'mag': 'application/vnd.ecowin.chart',
