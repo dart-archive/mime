@@ -894,6 +894,7 @@ final Map<String, String> defaultExtensionMap = <String, String>{
   'wdp': 'image/vnd.ms-photo',
   'weba': 'audio/webm',
   'webm': 'video/webm',
+  'webmanifest': 'application/json',
   'webp': 'image/webp',
   'wg': 'application/vnd.pmi.widget',
   'wgt': 'application/widget',
