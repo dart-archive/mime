@@ -104,7 +104,7 @@ class MimeTypeResolver {
   }
 
   static String _ext(String path) {
-    int index = path.lastIndexOf('.');
+    var index = path.lastIndexOf('.');
     if (index < 0 || index + 1 >= path.length) return path;
     return path.substring(index + 1).toLowerCase();
   }

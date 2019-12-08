@@ -37,6 +37,7 @@ class MimeMultipartTransformer
   MimeMultipartTransformer(String boundary)
       : _boundary = _getBoundary(boundary);
 
+  @override
   Stream<MimeMultipart> bind(Stream<List<int>> stream) {
     return BoundMultipartStream(_boundary, stream).stream;
   }
