@@ -14,7 +14,7 @@ class MagicNumber {
   bool matches(List<int> header) {
     if (header.length < numbers.length) return false;
 
-    for (int i = 0; i < numbers.length; i++) {
+    for (var i = 0; i < numbers.length; i++) {
       if (mask != null) {
         if ((mask[i] & numbers[i]) != (mask[i] & header[i])) return false;
       } else {

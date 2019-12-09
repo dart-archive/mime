@@ -45,24 +45,26 @@ int _toLowerCase(int byte) {
 
 void _expectByteValue(int val1, int val2) {
   if (val1 != val2) {
-    throw MimeMultipartException("Failed to parse multipart mime 1");
+    throw MimeMultipartException('Failed to parse multipart mime 1');
   }
 }
 
 void _expectWhitespace(int byte) {
   if (byte != CharCode.SP && byte != CharCode.HT) {
-    throw MimeMultipartException("Failed to parse multipart mime 2");
+    throw MimeMultipartException('Failed to parse multipart mime 2');
   }
 }
 
 class _MimeMultipart extends MimeMultipart {
+  @override
   final Map<String, String> headers;
   final Stream<List<int>> _stream;
 
   _MimeMultipart(this.headers, this._stream);
 
-  StreamSubscription<List<int>> listen(void onData(List<int> data),
-      {void onDone(), Function onError, bool cancelOnError}) {
+  @override
+  StreamSubscription<List<int>> listen(void Function(List<int> data) onData,
+      {void Function() onDone, Function onError, bool cancelOnError}) {
     return _stream.listen(onData,
         onDone: onDone, onError: onError, cancelOnError: cancelOnError);
   }
@@ -137,7 +139,7 @@ class BoundMultipartStream {
           }, onDone: () {
             if (_state != _DONE) {
               _controller
-                  .addError(MimeMultipartException("Bad multipart ending"));
+                  .addError(MimeMultipartException('Bad multipart ending'));
             }
             _controller.close();
           }, onError: _controller.addError);
@@ -168,14 +170,14 @@ class BoundMultipartStream {
           _subscription.cancel();
           break;
         default:
-          throw StateError("This code should never be reached.");
+          throw StateError('This code should never be reached.');
       }
     }
   }
 
   void _parse() {
     // Number of boundary bytes to artificially place before the supplied data.
-    int boundaryPrefix = 0;
+    var boundaryPrefix = 0;
     // Position where content starts. Will be null if no known content
     // start exists. Will be negative of the content starts in the
     // boundary prefix. Will be zero or position if the content starts
@@ -209,7 +211,7 @@ class BoundMultipartStream {
     } else {
       contentStartIndex = null;
     }
-    // The data to parse might be "artificially" prefixed with a
+    // The data to parse might be 'artificially' prefixed with a
     // partial match of the boundary.
     boundaryPrefix = _boundaryIndex;
 
@@ -256,7 +258,7 @@ class BoundMultipartStream {
           break;
 
         case _HEADER_START:
-          _headers = Map<String, String>();
+          _headers = <String, String>{};
           if (byte == CharCode.CR) {
             _state = _HEADER_ENDING;
           } else {
@@ -271,7 +273,7 @@ class BoundMultipartStream {
             _state = _HEADER_VALUE_START;
           } else {
             if (!_isTokenChar(byte)) {
-              throw MimeMultipartException("Invalid header field name");
+              throw MimeMultipartException('Invalid header field name');
             }
             _headerField.add(_toLowerCase(byte));
           }
@@ -304,8 +306,8 @@ class BoundMultipartStream {
           if (byte == CharCode.SP || byte == CharCode.HT) {
             _state = _HEADER_VALUE_START;
           } else {
-            String headerField = utf8.decode(_headerField);
-            String headerValue = utf8.decode(_headerValue);
+            var headerField = utf8.decode(_headerField);
+            var headerValue = utf8.decode(_headerValue);
             _headers[headerField.toLowerCase()] = headerValue;
             _headerField.clear();
             _headerValue.clear();
@@ -353,7 +355,7 @@ class BoundMultipartStream {
           } else {
             // Restart matching of the boundary.
             _index = _index - _boundaryIndex;
-            if (contentStartIndex == null) contentStartIndex = _index;
+            contentStartIndex ??= _index;
             _boundaryIndex = 0;
           }
           break;
