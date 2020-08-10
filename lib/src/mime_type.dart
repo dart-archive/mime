@@ -25,6 +25,19 @@ int get defaultMagicNumbersMaxLength => _globalResolver.magicNumbersMaxLength;
 String lookupMimeType(String path, {List<int> headerBytes}) =>
     _globalResolver.lookup(path, headerBytes: headerBytes);
 
+/// Returns the extension for the given MIME type.
+///
+/// If there are multiple extensions for [mime], return the first occurrence in
+/// the map. If there are no extensions for [mime], return [mime].
+String extensionFromMime(String mime) {
+  for (final key in defaultExtensionMap.keys) {
+    if (defaultExtensionMap[key].toLowerCase() == mime.toLowerCase()) {
+      return key;
+    }
+  }
+  return mime;
+}
+
 /// MIME-type resolver class, used to customize the lookup of mime-types.
 class MimeTypeResolver {
   final Map<String, String> _extensionMap = {};
