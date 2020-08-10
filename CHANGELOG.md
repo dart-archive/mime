@@ -1,3 +1,6 @@
+# 0.9.7
+* Add `extensionFromMime` utility function.
+
 # 0.9.6+3
 
 * Change the mime type for Dart source from `application/dart` to `text/x-dart`.

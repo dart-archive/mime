@@ -123,4 +123,22 @@ void main() {
 
     expect(defaultMagicNumbersMaxLength, actualMaxBytes);
   });
+
+  group('extensionFromMime', () {
+    test('returns match for mime with single extension', () {
+      expect(extensionFromMime('application/json'), equals('json'));
+      expect(extensionFromMime('application/java-archive'), equals('jar'));
+    });
+
+    test('returns first match for mime with multiple extensions', () {
+      expect(extensionFromMime('text/html'), equals('htm'));
+      expect(extensionFromMime('application/x-cbr'), equals('cb7'));
+    });
+
+    test('returns inputted string for unrecognized mime', () {
+      expect(
+          extensionFromMime('unrecognized_mime'), equals('unrecognized_mime'));
+      expect(extensionFromMime('i/am/not/a/mime'), equals('i/am/not/a/mime'));
+    });
+  });
 }

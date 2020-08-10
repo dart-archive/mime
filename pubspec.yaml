@@ -1,5 +1,5 @@
 name: mime
-version: 0.9.7-dev
+version: 0.9.7
 
 description: >-
   Utilities for handling media (MIME) types, including determining a type from
