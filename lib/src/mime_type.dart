@@ -30,9 +30,10 @@ String lookupMimeType(String path, {List<int> headerBytes}) =>
 /// If there are multiple extensions for [mime], return the first occurrence in
 /// the map. If there are no extensions for [mime], return [mime].
 String extensionFromMime(String mime) {
-  for (final key in defaultExtensionMap.keys) {
-    if (defaultExtensionMap[key].toLowerCase() == mime.toLowerCase()) {
-      return key;
+  mime = mime.toLowerCase();
+  for (final entry in defaultExtensionMap.entries) {
+    if (defaultExtensionMap[entry.key] == mime) {
+      return entry.key;
     }
   }
   return mime;
