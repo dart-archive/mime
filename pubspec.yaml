@@ -1,10 +1,10 @@
 name: mime
-version: 0.9.7
+version: 0.9.8-dev
 
 description: >-
   Utilities for handling media (MIME) types, including determining a type from
   a file extension and file contents.
-homepage: https://www.github.com/dart-lang/mime
+homepage: https://github.com/dart-lang/mime
 
 environment:
   sdk: '>=2.0.0 <3.0.0'
