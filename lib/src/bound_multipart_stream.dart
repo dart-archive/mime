@@ -211,7 +211,7 @@ class BoundMultipartStream {
 
     while (_index < _buffer.length && _state != _FAIL && _state != _DONE) {
       var byte =
-          (_index < 0) ? _boundary[boundaryPrefix + _index] : _buffer[_index];
+          _index < 0 ? _boundary[boundaryPrefix + _index] : _buffer[_index];
       switch (_state) {
         case _START:
           if (byte == _boundary[_boundaryIndex]) {
