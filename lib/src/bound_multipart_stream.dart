@@ -1,7 +1,6 @@
 // Copyright (c) 2014, the Dart project authors.  Please see the AUTHORS file
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
-library mime.bound_multipart_stream;
 
 import 'dart:async';
 import 'dart:convert';
@@ -9,7 +8,7 @@ import 'dart:convert';
 import 'char_code.dart';
 import 'mime_shared.dart';
 
-// Bytes for '()<>@,;:\\"/[]?={} \t'.
+/// Bytes for '()<>@,;:\\"/[]?={} \t'.
 const _SEPARATORS = [
   40,
   41,
@@ -102,7 +101,7 @@ class BoundMultipartStream {
 
   int _controllerState = _CONTROLLER_STATE_IDLE;
 
-  StreamController<MimeMultipart> _controller;
+  final _controller = StreamController<MimeMultipart>(sync: true);
 
   Stream<MimeMultipart> get stream => _controller.stream;
 
@@ -114,36 +113,37 @@ class BoundMultipartStream {
   int _state = _START;
   int _boundaryIndex = 2;
 
-  // Current index in the data buffer. If index is negative then it
-  // is the index into the artificial prefix of the boundary string.
+  /// Current index into [_buffer].
+  ///
+  /// If index is negative then it is the index into the artificial prefix of
+  /// the boundary string.
   int _index;
   List<int> _buffer;
 
   BoundMultipartStream(this._boundary, Stream<List<int>> stream) {
-    _controller = StreamController(
-        sync: true,
-        onPause: _pauseStream,
-        onResume: _resumeStream,
-        onCancel: () {
-          _controllerState = _CONTROLLER_STATE_CANCELED;
-          _tryPropagateControllerState();
-        },
-        onListen: () {
-          _controllerState = _CONTROLLER_STATE_ACTIVE;
-          _subscription = stream.listen((data) {
-            assert(_buffer == null);
-            _subscription.pause();
-            _buffer = data;
-            _index = 0;
-            _parse();
-          }, onDone: () {
-            if (_state != _DONE) {
-              _controller
-                  .addError(MimeMultipartException('Bad multipart ending'));
-            }
-            _controller.close();
-          }, onError: _controller.addError);
-        });
+    _controller
+      ..onPause = _pauseStream
+      ..onResume = _resumeStream
+      ..onCancel = () {
+        _controllerState = _CONTROLLER_STATE_CANCELED;
+        _tryPropagateControllerState();
+      }
+      ..onListen = () {
+        _controllerState = _CONTROLLER_STATE_ACTIVE;
+        _subscription = stream.listen((data) {
+          assert(_buffer == null);
+          _subscription.pause();
+          _buffer = data;
+          _index = 0;
+          _parse();
+        }, onDone: () {
+          if (_state != _DONE) {
+            _controller
+                .addError(MimeMultipartException('Bad multipart ending'));
+          }
+          _controller.close();
+        }, onError: _controller.addError);
+      };
   }
 
   void _resumeStream() {
@@ -177,12 +177,15 @@ class BoundMultipartStream {
 
   void _parse() {
     // Number of boundary bytes to artificially place before the supplied data.
-    var boundaryPrefix = 0;
+    // The data to parse might be 'artificially' prefixed with a
+    // partial match of the boundary.
+    var boundaryPrefix = _boundaryIndex;
     // Position where content starts. Will be null if no known content
     // start exists. Will be negative of the content starts in the
     // boundary prefix. Will be zero or position if the content starts
     // in the current buffer.
-    int contentStartIndex;
+    var contentStartIndex =
+        _state == _CONTENT && _boundaryIndex == 0 ? 0 : null;
 
     // Function to report content data for the current part. The data
     // reported is from the current content start index up til the
@@ -206,22 +209,9 @@ class BoundMultipartStream {
       }
     }
 
-    if (_state == _CONTENT && _boundaryIndex == 0) {
-      contentStartIndex = 0;
-    } else {
-      contentStartIndex = null;
-    }
-    // The data to parse might be 'artificially' prefixed with a
-    // partial match of the boundary.
-    boundaryPrefix = _boundaryIndex;
-
-    while ((_index < _buffer.length) && _state != _FAIL && _state != _DONE) {
-      int byte;
-      if (_index < 0) {
-        byte = _boundary[boundaryPrefix + _index];
-      } else {
-        byte = _buffer[_index];
-      }
+    while (_index < _buffer.length && _state != _FAIL && _state != _DONE) {
+      var byte =
+          _index < 0 ? _boundary[boundaryPrefix + _index] : _buffer[_index];
       switch (_state) {
         case _START:
           if (byte == _boundary[_boundaryIndex]) {
