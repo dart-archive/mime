@@ -7,7 +7,7 @@ library mime.magic_number;
 class MagicNumber {
   final String mimeType;
   final List<int> numbers;
-  final List<int> mask;
+  final List<int>? mask;
 
   const MagicNumber(this.mimeType, this.numbers, {this.mask});
 
@@ -16,7 +16,7 @@ class MagicNumber {
 
     for (var i = 0; i < numbers.length; i++) {
       if (mask != null) {
-        if ((mask[i] & numbers[i]) != (mask[i] & header[i])) return false;
+        if ((mask![i] & numbers[i]) != (mask![i] & header[i])) return false;
       } else {
         if (numbers[i] != header[i]) return false;
       }
