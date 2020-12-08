@@ -22,7 +22,7 @@ int get defaultMagicNumbersMaxLength => _globalResolver.magicNumbersMaxLength;
 /// a file have been saved using the wrong file-name extension. If less than
 /// [defaultMagicNumbersMaxLength] bytes was provided, some magic-numbers won't
 /// be matched against.
-String lookupMimeType(String path, {List<int> headerBytes}) =>
+String? lookupMimeType(String path, {List<int>? headerBytes}) =>
     _globalResolver.lookup(path, headerBytes: headerBytes);
 
 /// Returns the extension for the given MIME type.
@@ -69,8 +69,8 @@ class MimeTypeResolver {
   /// though a file have been saved using the wrong file-name extension. If less
   /// than [magicNumbersMaxLength] bytes was provided, some magic-numbers won't
   /// be matched against.
-  String lookup(String path, {List<int> headerBytes}) {
-    String result;
+  String? lookup(String path, {List<int>? headerBytes}) {
+    String? result;
     if (headerBytes != null) {
       result = _matchMagic(headerBytes, _magicNumbers);
       if (result != null) return result;
@@ -99,7 +99,7 @@ class MimeTypeResolver {
   ///
   /// If [mask] is present,the [mask] is used to only perform matching on
   /// selective bits. The [mask] must have the same length as [bytes].
-  void addMagicNumber(List<int> bytes, String mimeType, {List<int> mask}) {
+  void addMagicNumber(List<int> bytes, String mimeType, {List<int>? mask}) {
     if (mask != null && bytes.length != mask.length) {
       throw ArgumentError('Bytes and mask are of different lengths');
     }
@@ -109,7 +109,7 @@ class MimeTypeResolver {
     _magicNumbers.add(MagicNumber(mimeType, bytes, mask: mask));
   }
 
-  static String _matchMagic(
+  static String? _matchMagic(
       List<int> headerBytes, List<MagicNumber> magicNumbers) {
     for (var mn in magicNumbers) {
       if (mn.matches(headerBytes)) return mn.mimeType;

@@ -62,8 +62,8 @@ class _MimeMultipart extends MimeMultipart {
   _MimeMultipart(this.headers, this._stream);
 
   @override
-  StreamSubscription<List<int>> listen(void Function(List<int> data) onData,
-      {void Function() onDone, Function onError, bool cancelOnError}) {
+  StreamSubscription<List<int>> listen(void Function(List<int> data)? onData,
+      {void Function()? onDone, Function? onError, bool? cancelOnError}) {
     return _stream.listen(onData,
         onDone: onDone, onError: onError, cancelOnError: cancelOnError);
   }
@@ -105,10 +105,10 @@ class BoundMultipartStream {
 
   Stream<MimeMultipart> get stream => _controller.stream;
 
-  StreamSubscription _subscription;
+  late StreamSubscription _subscription;
 
-  StreamController<List<int>> _multipartController;
-  Map<String, String> _headers;
+  StreamController<List<int>>? _multipartController;
+  Map<String, String>? _headers;
 
   int _state = _START;
   int _boundaryIndex = 2;
@@ -117,8 +117,8 @@ class BoundMultipartStream {
   ///
   /// If index is negative then it is the index into the artificial prefix of
   /// the boundary string.
-  int _index;
-  List<int> _buffer;
+  int _index = 0;
+  List<int> _buffer = _placeholderBuffer;
 
   BoundMultipartStream(this._boundary, Stream<List<int>> stream) {
     _controller
@@ -131,7 +131,7 @@ class BoundMultipartStream {
       ..onListen = () {
         _controllerState = _CONTROLLER_STATE_ACTIVE;
         _subscription = stream.listen((data) {
-          assert(_buffer == null);
+          assert(_buffer == _placeholderBuffer);
           _subscription.pause();
           _buffer = data;
           _index = 0;
@@ -193,18 +193,18 @@ class BoundMultipartStream {
     // prefix of the boundary both the content start index and index
     // can be negative.
     void reportData() {
-      if (contentStartIndex < 0) {
+      if (contentStartIndex! < 0) {
         var contentLength = boundaryPrefix + _index - _boundaryIndex;
         if (contentLength <= boundaryPrefix) {
-          _multipartController.add(_boundary.sublist(0, contentLength));
+          _multipartController!.add(_boundary.sublist(0, contentLength));
         } else {
-          _multipartController.add(_boundary.sublist(0, boundaryPrefix));
-          _multipartController
+          _multipartController!.add(_boundary.sublist(0, boundaryPrefix));
+          _multipartController!
               .add(_buffer.sublist(0, contentLength - boundaryPrefix));
         }
       } else {
         var contentEndIndex = _index - _boundaryIndex;
-        _multipartController
+        _multipartController!
             .add(_buffer.sublist(contentStartIndex, contentEndIndex));
       }
     }
@@ -239,8 +239,8 @@ class BoundMultipartStream {
 
         case _BOUNDARY_END:
           _expectByteValue(byte, CharCode.LF);
+          _multipartController?.close();
           if (_multipartController != null) {
-            _multipartController.close();
             _multipartController = null;
             _tryPropagateControllerState();
           }
@@ -298,7 +298,7 @@ class BoundMultipartStream {
           } else {
             var headerField = utf8.decode(_headerField);
             var headerValue = utf8.decode(_headerValue);
-            _headers[headerField.toLowerCase()] = headerValue;
+            _headers![headerField.toLowerCase()] = headerValue;
             _headerField.clear();
             _headerValue.clear();
             if (byte == CharCode.CR) {
@@ -321,7 +321,7 @@ class BoundMultipartStream {
               onPause: _subscription.pause,
               onResume: _subscription.resume);
           _controller
-              .add(_MimeMultipart(_headers, _multipartController.stream));
+              .add(_MimeMultipart(_headers!, _multipartController!.stream));
           _headers = null;
           _state = _CONTENT;
           contentStartIndex = _index + 1;
@@ -336,7 +336,7 @@ class BoundMultipartStream {
                 reportData();
                 _index--;
               }
-              _multipartController.close();
+              _multipartController!.close();
               _multipartController = null;
               _tryPropagateControllerState();
               _boundaryIndex = 0;
@@ -365,8 +365,8 @@ class BoundMultipartStream {
 
         case _LAST_BOUNDARY_END:
           _expectByteValue(byte, CharCode.LF);
+          _multipartController?.close();
           if (_multipartController != null) {
-            _multipartController.close();
             _multipartController = null;
             _tryPropagateControllerState();
           }
@@ -390,9 +390,12 @@ class BoundMultipartStream {
 
     // Resume if at end.
     if (_index == _buffer.length) {
-      _buffer = null;
-      _index = null;
+      _buffer = _placeholderBuffer;
+      _index = 0;
       _subscription.resume();
     }
   }
 }
+
+// Used as a placeholder instead of having a nullable buffer.
+const _placeholderBuffer = <int>[];

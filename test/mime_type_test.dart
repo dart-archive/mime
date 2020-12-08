@@ -8,9 +8,9 @@ import 'package:test/test.dart';
 import 'package:mime/mime.dart';
 import 'package:mime/src/magic_number.dart';
 
-void _expectMimeType(String path, String expectedMimeType,
-    {List<int> headerBytes, MimeTypeResolver resolver}) {
-  String mimeType;
+void _expectMimeType(String path, String? expectedMimeType,
+    {List<int>? headerBytes, MimeTypeResolver? resolver}) {
+  String? mimeType;
   if (resolver == null) {
     mimeType = lookupMimeType(path, headerBytes: headerBytes);
   } else {

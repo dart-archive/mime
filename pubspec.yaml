@@ -1,5 +1,5 @@
 name: mime
-version: 0.9.8-dev
+version: 1.0.0-nullsafety.0
 
 description: >-
   Utilities for handling media (MIME) types, including determining a type from
@@ -7,8 +7,12 @@ description: >-
 homepage: https://github.com/dart-lang/mime
 
 environment:
-  sdk: '>=2.1.0 <3.0.0'
+  sdk: '>=2.12.0-0 <3.0.0'
 
 dev_dependencies:
-  pedantic: ^1.0.0
-  test: ^1.2.0
+  pedantic: ^1.10.0-nullsafety
+  test: ^1.16.0-nullsafety
+
+dependency_overrides:
+  # Required due to package:test cycle.
+  shelf_static: ^0.2.8
