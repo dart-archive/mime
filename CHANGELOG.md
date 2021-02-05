@@ -1,6 +1,10 @@
+# 1.0.0
+
+* Stable null safety release.
+
 # 1.0.0-nullsafety.0
 
-* Update to null safety
+* Update to null safety.
 
 # 0.9.7
 
