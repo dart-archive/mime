@@ -5,8 +5,8 @@
 import 'dart:async';
 import 'dart:math';
 
-import 'package:test/test.dart';
 import 'package:mime/mime.dart';
+import 'package:test/test.dart';
 
 void _writeInChunks(
     List<int> data, int chunkSize, StreamController<List<int>> controller) {
