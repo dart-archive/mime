@@ -20,12 +20,16 @@ void _writeInChunks(
   controller.close();
 }
 
-enum TestMode { IMMEDIATE_LISTEN, DELAY_LISTEN, PAUSE_RESUME }
+enum TestMode { immediateListen, delayListen, pauseResume }
 
-void _runParseTest(String message, String boundary, TestMode mode,
-    [List<Map>? expectedHeaders,
-    List? expectedParts,
-    bool expectError = false]) {
+void _runParseTest(
+  String message,
+  String boundary,
+  TestMode mode, [
+  List<Map>? expectedHeaders,
+  List<String?>? expectedParts,
+  bool expectError = false,
+]) {
   Future testWrite(List<int> data, [int chunkSize = -1]) {
     var controller = StreamController<List<int>>(sync: true);
 
@@ -40,41 +44,48 @@ void _runParseTest(String message, String boundary, TestMode mode,
         expect(multipart.headers, equals(expectedHeaders[part]));
       }
       switch (mode) {
-        case TestMode.IMMEDIATE_LISTEN:
+        case TestMode.immediateListen:
           futures.add(multipart.fold<List<int>>(
               [], (buffer, data) => buffer..addAll(data)).then((data) {
             if (expectedParts?[part] != null) {
-              expect(data, equals(expectedParts?[part].codeUnits));
+              expect(data, equals(expectedParts?[part]!.codeUnits));
             }
           }));
           break;
 
-        case TestMode.DELAY_LISTEN:
-          futures.add(Future(() {
-            return multipart.fold<List<int>>(
-                [], (buffer, data) => buffer..addAll(data)).then((data) {
-              if (expectedParts?[part] != null) {
-                expect(data, equals(expectedParts?[part].codeUnits));
-              }
-            });
-          }));
+        case TestMode.delayListen:
+          futures.add(
+            Future(
+              () => multipart.fold<List<int>>(
+                [],
+                (buffer, data) => buffer..addAll(data),
+              ).then(
+                (data) {
+                  if (expectedParts?[part] != null) {
+                    expect(data, equals(expectedParts?[part]!.codeUnits));
+                  }
+                },
+              ),
+            ),
+          );
           break;
 
-        case TestMode.PAUSE_RESUME:
+        case TestMode.pauseResume:
           var completer = Completer();
           futures.add(completer.future);
           var buffer = [];
-          var subscription;
+          late StreamSubscription subscription;
           subscription = multipart.listen((data) {
             buffer.addAll(data);
             subscription.pause();
             Future(() => subscription.resume());
           }, onDone: () {
             if (expectedParts?[part] != null) {
-              expect(buffer, equals(expectedParts?[part].codeUnits));
+              expect(buffer, equals(expectedParts?[part]!.codeUnits));
             }
             completer.complete();
           });
+          addTearDown(subscription.cancel);
           break;
       }
     }, onError: (Object error) {
@@ -102,12 +113,13 @@ void _runParseTest(String message, String boundary, TestMode mode,
       if (expectedHeaders != null) {
         expect(multipart.headers, equals(expectedHeaders[0]));
       }
-      return (multipart
-          .fold<List<int>>([], (b, d) => b..addAll(d)).then((data) {
-        if (expectedParts != null && expectedParts[0] != null) {
-          expect(data, equals(expectedParts[0].codeUnits));
-        }
-      }));
+      return multipart.fold<List<int>>([], (b, d) => b..addAll(d)).then(
+        (data) {
+          if (expectedParts != null && expectedParts[0] != null) {
+            expect(data, equals(expectedParts[0]!.codeUnits));
+          }
+        },
+      );
     }).then((_) {
       completer.complete();
     });
@@ -123,7 +135,7 @@ void _runParseTest(String message, String boundary, TestMode mode,
     var controller = StreamController<List<int>>(sync: true);
     var stream =
         controller.stream.transform(MimeMultipartTransformer(boundary));
-    var subscription;
+    late StreamSubscription subscription;
     var i = 0;
     var futures = <Future>[];
     subscription = stream.listen((multipart) {
@@ -137,11 +149,11 @@ void _runParseTest(String message, String boundary, TestMode mode,
         expect(multipart.headers, equals(expectedHeaders[partIndex]));
       }
       futures.add(
-          (multipart.fold<List<int>>([], (b, d) => b..addAll(d)).then((data) {
+          multipart.fold<List<int>>([], (b, d) => b..addAll(d)).then((data) {
         if (expectedParts != null && expectedParts[partIndex] != null) {
-          expect(data, equals(expectedParts[partIndex].codeUnits));
+          expect(data, equals(expectedParts[partIndex]!.codeUnits));
         }
-      })));
+      }));
 
       if (partIndex == (parts - 1)) {
         subscription.cancel();
@@ -199,13 +211,13 @@ void _runParseTest(String message, String boundary, TestMode mode,
 
 void _testParse(String message, String boundary,
     [List<Map>? expectedHeaders,
-    List? expectedParts,
+    List<String?>? expectedParts,
     bool expectError = false]) {
-  _runParseTest(message, boundary, TestMode.IMMEDIATE_LISTEN, expectedHeaders,
+  _runParseTest(message, boundary, TestMode.immediateListen, expectedHeaders,
       expectedParts, expectError);
-  _runParseTest(message, boundary, TestMode.DELAY_LISTEN, expectedHeaders,
+  _runParseTest(message, boundary, TestMode.delayListen, expectedHeaders,
       expectedParts, expectError);
-  _runParseTest(message, boundary, TestMode.PAUSE_RESUME, expectedHeaders,
+  _runParseTest(message, boundary, TestMode.pauseResume, expectedHeaders,
       expectedParts, expectError);
 }
 

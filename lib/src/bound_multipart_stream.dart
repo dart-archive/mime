@@ -5,39 +5,20 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'char_code.dart';
+import 'char_code.dart' as char_code;
 import 'mime_shared.dart';
 
 /// Bytes for '()<>@,;:\\"/[]?={} \t'.
-const _SEPARATORS = [
-  40,
-  41,
-  60,
-  62,
-  64,
-  44,
-  59,
-  58,
-  92,
-  34,
-  47,
-  91,
-  93,
-  63,
-  61,
-  123,
-  125,
-  32,
-  9
-];
+const _separators = {
+  40, 41, 60, 62, 64, 44, 59, 58, 92, 34, 47, 91, 93, 63, 61, 123, 125, 32, 9 //
+};
 
-bool _isTokenChar(int byte) {
-  return byte > 31 && byte < 128 && !_SEPARATORS.contains(byte);
-}
+bool _isTokenChar(int byte) =>
+    byte > 31 && byte < 128 && !_separators.contains(byte);
 
 int _toLowerCase(int byte) {
-  const delta = CharCode.LOWER_A - CharCode.UPPER_A;
-  return (CharCode.UPPER_A <= byte && byte <= CharCode.UPPER_Z)
+  const delta = char_code.lowerA - char_code.upperA;
+  return (char_code.upperA <= byte && byte <= char_code.upperZ)
       ? byte + delta
       : byte;
 }
@@ -49,7 +30,7 @@ void _expectByteValue(int val1, int val2) {
 }
 
 void _expectWhitespace(int byte) {
-  if (byte != CharCode.SP && byte != CharCode.HT) {
+  if (byte != char_code.sp && byte != char_code.ht) {
     throw MimeMultipartException('Failed to parse multipart mime 2');
   }
 }
@@ -62,30 +43,37 @@ class _MimeMultipart extends MimeMultipart {
   _MimeMultipart(this.headers, this._stream);
 
   @override
-  StreamSubscription<List<int>> listen(void Function(List<int> data)? onData,
-      {void Function()? onDone, Function? onError, bool? cancelOnError}) {
-    return _stream.listen(onData,
-        onDone: onDone, onError: onError, cancelOnError: cancelOnError);
-  }
+  StreamSubscription<List<int>> listen(
+    void Function(List<int> data)? onData, {
+    void Function()? onDone,
+    Function? onError,
+    bool? cancelOnError,
+  }) =>
+      _stream.listen(
+        onData,
+        onDone: onDone,
+        onError: onError,
+        cancelOnError: cancelOnError,
+      );
 }
 
 class BoundMultipartStream {
-  static const int _START = 0;
-  static const int _BOUNDARY_ENDING = 1;
-  static const int _BOUNDARY_END = 2;
-  static const int _HEADER_START = 3;
-  static const int _HEADER_FIELD = 4;
-  static const int _HEADER_VALUE_START = 5;
-  static const int _HEADER_VALUE = 6;
-  static const int _HEADER_VALUE_FOLDING_OR_ENDING = 7;
-  static const int _HEADER_VALUE_FOLD_OR_END = 8;
-  static const int _HEADER_ENDING = 9;
-  static const int _CONTENT = 10;
-  static const int _LAST_BOUNDARY_DASH2 = 11;
-  static const int _LAST_BOUNDARY_ENDING = 12;
-  static const int _LAST_BOUNDARY_END = 13;
-  static const int _DONE = 14;
-  static const int _FAIL = 15;
+  static const int _startCode = 0;
+  static const int _boundaryEndingCode = 1;
+  static const int _boundaryEndCode = 2;
+  static const int _headerStartCode = 3;
+  static const int _headerFieldCode = 4;
+  static const int _headerValueStartCode = 5;
+  static const int _headerValueCode = 6;
+  static const int _headerValueFoldingOrEndingCode = 7;
+  static const int _headerValueFoldOrEndCode = 8;
+  static const int _headerEndingCode = 9;
+  static const int _contentCode = 10;
+  static const int _lastBoundaryDash2Code = 11;
+  static const int _lastBoundaryEndingCode = 12;
+  static const int _lastBoundaryEndCode = 13;
+  static const int _doneCode = 14;
+  static const int _failCode = 15;
 
   final List<int> _boundary;
   final List<int> _headerField = [];
@@ -94,12 +82,12 @@ class BoundMultipartStream {
   // The following states belong to `_controller`, state changes will not be
   // immediately acted upon but rather only after the current
   // `_multipartController` is done.
-  static const int _CONTROLLER_STATE_IDLE = 0;
-  static const int _CONTROLLER_STATE_ACTIVE = 1;
-  static const int _CONTROLLER_STATE_PAUSED = 2;
-  static const int _CONTROLLER_STATE_CANCELED = 3;
+  static const int _controllerStateIdle = 0;
+  static const int _controllerStateActive = 1;
+  static const int _controllerStatePaused = 2;
+  static const int _controllerStateCanceled = 3;
 
-  int _controllerState = _CONTROLLER_STATE_IDLE;
+  int _controllerState = _controllerStateIdle;
 
   final _controller = StreamController<MimeMultipart>(sync: true);
 
@@ -110,7 +98,7 @@ class BoundMultipartStream {
   StreamController<List<int>>? _multipartController;
   Map<String, String>? _headers;
 
-  int _state = _START;
+  int _state = _startCode;
   int _boundaryIndex = 2;
 
   /// Current index into [_buffer].
@@ -125,11 +113,11 @@ class BoundMultipartStream {
       ..onPause = _pauseStream
       ..onResume = _resumeStream
       ..onCancel = () {
-        _controllerState = _CONTROLLER_STATE_CANCELED;
+        _controllerState = _controllerStateCanceled;
         _tryPropagateControllerState();
       }
       ..onListen = () {
-        _controllerState = _CONTROLLER_STATE_ACTIVE;
+        _controllerState = _controllerStateActive;
         _subscription = stream.listen((data) {
           assert(_buffer == _placeholderBuffer);
           _subscription.pause();
@@ -137,7 +125,7 @@ class BoundMultipartStream {
           _index = 0;
           _parse();
         }, onDone: () {
-          if (_state != _DONE) {
+          if (_state != _doneCode) {
             _controller
                 .addError(MimeMultipartException('Bad multipart ending'));
           }
@@ -147,26 +135,26 @@ class BoundMultipartStream {
   }
 
   void _resumeStream() {
-    assert(_controllerState == _CONTROLLER_STATE_PAUSED);
-    _controllerState = _CONTROLLER_STATE_ACTIVE;
+    assert(_controllerState == _controllerStatePaused);
+    _controllerState = _controllerStateActive;
     _tryPropagateControllerState();
   }
 
   void _pauseStream() {
-    _controllerState = _CONTROLLER_STATE_PAUSED;
+    _controllerState = _controllerStatePaused;
     _tryPropagateControllerState();
   }
 
   void _tryPropagateControllerState() {
     if (_multipartController == null) {
       switch (_controllerState) {
-        case _CONTROLLER_STATE_ACTIVE:
+        case _controllerStateActive:
           if (_subscription.isPaused) _subscription.resume();
           break;
-        case _CONTROLLER_STATE_PAUSED:
+        case _controllerStatePaused:
           if (!_subscription.isPaused) _subscription.pause();
           break;
-        case _CONTROLLER_STATE_CANCELED:
+        case _controllerStateCanceled:
           _subscription.cancel();
           break;
         default:
@@ -185,7 +173,7 @@ class BoundMultipartStream {
     // boundary prefix. Will be zero or position if the content starts
     // in the current buffer.
     var contentStartIndex =
-        _state == _CONTENT && _boundaryIndex == 0 ? 0 : null;
+        _state == _contentCode && _boundaryIndex == 0 ? 0 : null;
 
     // Function to report content data for the current part. The data
     // reported is from the current content start index up til the
@@ -209,15 +197,16 @@ class BoundMultipartStream {
       }
     }
 
-    while (_index < _buffer.length && _state != _FAIL && _state != _DONE) {
+    while (
+        _index < _buffer.length && _state != _failCode && _state != _doneCode) {
       var byte =
           _index < 0 ? _boundary[boundaryPrefix + _index] : _buffer[_index];
       switch (_state) {
-        case _START:
+        case _startCode:
           if (byte == _boundary[_boundaryIndex]) {
             _boundaryIndex++;
             if (_boundaryIndex == _boundary.length) {
-              _state = _BOUNDARY_ENDING;
+              _state = _boundaryEndingCode;
               _boundaryIndex = 0;
             }
           } else {
@@ -227,40 +216,40 @@ class BoundMultipartStream {
           }
           break;
 
-        case _BOUNDARY_ENDING:
-          if (byte == CharCode.CR) {
-            _state = _BOUNDARY_END;
-          } else if (byte == CharCode.DASH) {
-            _state = _LAST_BOUNDARY_DASH2;
+        case _boundaryEndingCode:
+          if (byte == char_code.cr) {
+            _state = _boundaryEndCode;
+          } else if (byte == char_code.dash) {
+            _state = _lastBoundaryDash2Code;
           } else {
             _expectWhitespace(byte);
           }
           break;
 
-        case _BOUNDARY_END:
-          _expectByteValue(byte, CharCode.LF);
+        case _boundaryEndCode:
+          _expectByteValue(byte, char_code.lf);
           _multipartController?.close();
           if (_multipartController != null) {
             _multipartController = null;
             _tryPropagateControllerState();
           }
-          _state = _HEADER_START;
+          _state = _headerStartCode;
           break;
 
-        case _HEADER_START:
+        case _headerStartCode:
           _headers = <String, String>{};
-          if (byte == CharCode.CR) {
-            _state = _HEADER_ENDING;
+          if (byte == char_code.cr) {
+            _state = _headerEndingCode;
           } else {
             // Start of new header field.
             _headerField.add(_toLowerCase(byte));
-            _state = _HEADER_FIELD;
+            _state = _headerFieldCode;
           }
           break;
 
-        case _HEADER_FIELD:
-          if (byte == CharCode.COLON) {
-            _state = _HEADER_VALUE_START;
+        case _headerFieldCode:
+          if (byte == char_code.colon) {
+            _state = _headerValueStartCode;
           } else {
             if (!_isTokenChar(byte)) {
               throw MimeMultipartException('Invalid header field name');
@@ -269,50 +258,50 @@ class BoundMultipartStream {
           }
           break;
 
-        case _HEADER_VALUE_START:
-          if (byte == CharCode.CR) {
-            _state = _HEADER_VALUE_FOLDING_OR_ENDING;
-          } else if (byte != CharCode.SP && byte != CharCode.HT) {
+        case _headerValueStartCode:
+          if (byte == char_code.cr) {
+            _state = _headerValueFoldingOrEndingCode;
+          } else if (byte != char_code.sp && byte != char_code.ht) {
             // Start of new header value.
             _headerValue.add(byte);
-            _state = _HEADER_VALUE;
+            _state = _headerValueCode;
           }
           break;
 
-        case _HEADER_VALUE:
-          if (byte == CharCode.CR) {
-            _state = _HEADER_VALUE_FOLDING_OR_ENDING;
+        case _headerValueCode:
+          if (byte == char_code.cr) {
+            _state = _headerValueFoldingOrEndingCode;
           } else {
             _headerValue.add(byte);
           }
           break;
 
-        case _HEADER_VALUE_FOLDING_OR_ENDING:
-          _expectByteValue(byte, CharCode.LF);
-          _state = _HEADER_VALUE_FOLD_OR_END;
+        case _headerValueFoldingOrEndingCode:
+          _expectByteValue(byte, char_code.lf);
+          _state = _headerValueFoldOrEndCode;
           break;
 
-        case _HEADER_VALUE_FOLD_OR_END:
-          if (byte == CharCode.SP || byte == CharCode.HT) {
-            _state = _HEADER_VALUE_START;
+        case _headerValueFoldOrEndCode:
+          if (byte == char_code.sp || byte == char_code.ht) {
+            _state = _headerValueStartCode;
           } else {
             var headerField = utf8.decode(_headerField);
             var headerValue = utf8.decode(_headerValue);
             _headers![headerField.toLowerCase()] = headerValue;
             _headerField.clear();
             _headerValue.clear();
-            if (byte == CharCode.CR) {
-              _state = _HEADER_ENDING;
+            if (byte == char_code.cr) {
+              _state = _headerEndingCode;
             } else {
               // Start of new header field.
               _headerField.add(_toLowerCase(byte));
-              _state = _HEADER_FIELD;
+              _state = _headerFieldCode;
             }
           }
           break;
 
-        case _HEADER_ENDING:
-          _expectByteValue(byte, CharCode.LF);
+        case _headerEndingCode:
+          _expectByteValue(byte, char_code.lf);
           _multipartController = StreamController(
               sync: true,
               onListen: () {
@@ -323,11 +312,11 @@ class BoundMultipartStream {
           _controller
               .add(_MimeMultipart(_headers!, _multipartController!.stream));
           _headers = null;
-          _state = _CONTENT;
+          _state = _contentCode;
           contentStartIndex = _index + 1;
           break;
 
-        case _CONTENT:
+        case _contentCode:
           if (byte == _boundary[_boundaryIndex]) {
             _boundaryIndex++;
             if (_boundaryIndex == _boundary.length) {
@@ -340,7 +329,7 @@ class BoundMultipartStream {
               _multipartController = null;
               _tryPropagateControllerState();
               _boundaryIndex = 0;
-              _state = _BOUNDARY_ENDING;
+              _state = _boundaryEndingCode;
             }
           } else {
             // Restart matching of the boundary.
@@ -350,27 +339,27 @@ class BoundMultipartStream {
           }
           break;
 
-        case _LAST_BOUNDARY_DASH2:
-          _expectByteValue(byte, CharCode.DASH);
-          _state = _LAST_BOUNDARY_ENDING;
+        case _lastBoundaryDash2Code:
+          _expectByteValue(byte, char_code.dash);
+          _state = _lastBoundaryEndingCode;
           break;
 
-        case _LAST_BOUNDARY_ENDING:
-          if (byte == CharCode.CR) {
-            _state = _LAST_BOUNDARY_END;
+        case _lastBoundaryEndingCode:
+          if (byte == char_code.cr) {
+            _state = _lastBoundaryEndCode;
           } else {
             _expectWhitespace(byte);
           }
           break;
 
-        case _LAST_BOUNDARY_END:
-          _expectByteValue(byte, CharCode.LF);
+        case _lastBoundaryEndCode:
+          _expectByteValue(byte, char_code.lf);
           _multipartController?.close();
           if (_multipartController != null) {
             _multipartController = null;
             _tryPropagateControllerState();
           }
-          _state = _DONE;
+          _state = _doneCode;
           break;
 
         default:
@@ -384,7 +373,7 @@ class BoundMultipartStream {
     }
 
     // Report any known content.
-    if (_state == _CONTENT && contentStartIndex != null) {
+    if (_state == _contentCode && contentStartIndex != null) {
       reportData();
     }
 
