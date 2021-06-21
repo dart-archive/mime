@@ -2,8 +2,6 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-library mime.mime_type;
-
 import 'default_extension_map.dart';
 import 'magic_number.dart';
 
@@ -54,7 +52,7 @@ class MimeTypeResolver {
   /// Create a new [MimeTypeResolver] containing the default scope.
   MimeTypeResolver()
       : _useDefault = true,
-        _magicNumbersMaxLength = DEFAULT_MAGIC_NUMBERS_MAX_LENGTH;
+        _magicNumbersMaxLength = initialMagicNumbersMaxLength;
 
   /// Get the maximum number of bytes required to match all magic numbers, when
   /// performing [lookup] with headerBytes present.
@@ -75,7 +73,7 @@ class MimeTypeResolver {
       result = _matchMagic(headerBytes, _magicNumbers);
       if (result != null) return result;
       if (_useDefault) {
-        result = _matchMagic(headerBytes, DEFAULT_MAGIC_NUMBERS);
+        result = _matchMagic(headerBytes, initialMagicNumbers);
         if (result != null) return result;
       }
     }

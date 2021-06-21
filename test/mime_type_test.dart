@@ -117,11 +117,12 @@ void main() {
   });
 
   test('default magic number', () {
-    var actualMaxBytes = DEFAULT_MAGIC_NUMBERS.fold(0, (num previous, magic) {
-      return math.max(previous, magic.numbers.length);
-    });
+    var actualMaxBytes = initialMagicNumbers.fold<int>(
+      0,
+      (previous, magic) => math.max(previous, magic.numbers.length),
+    );
 
-    expect(defaultMagicNumbersMaxLength, actualMaxBytes);
+    expect(initialMagicNumbersMaxLength, actualMaxBytes);
   });
 
   group('extensionFromMime', () {
