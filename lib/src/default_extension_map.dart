@@ -993,4 +993,6 @@ const Map<String, String> defaultExtensionMap = <String, String>{
   'zir': 'application/vnd.zul',
   'zirz': 'application/vnd.zul',
   'zmm': 'application/vnd.handheld-entertainment+xml',
+  'heic': 'image/heic',
+  'heif': 'image/heif',
 };
