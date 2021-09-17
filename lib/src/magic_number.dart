@@ -58,6 +58,7 @@ const List<MagicNumber> initialMagicNumbers = [
     0xFF,
     0xFF
   ]),
+  MagicNumber('audio/x-flac', [0x66, 0x4C, 0x61, 0x43]),
   MagicNumber('audio/x-wav', [
     0x52,
     0x49,
