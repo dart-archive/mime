@@ -1,3 +1,7 @@
+# 1.1.0
+
+* Add image/webp mimeType lookup by header bytes.
+
 # 1.0.0
 
 * Stable null safety release.
