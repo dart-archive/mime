@@ -1,4 +1,4 @@
-# 1.1.0
+# 1.0.1
 
 * Add image/webp mimeType lookup by header bytes.
 
