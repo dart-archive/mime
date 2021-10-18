@@ -254,21 +254,21 @@ Ym9keSBvZiB0aGUgbWVzc2FnZS48L3A+CiAgPC9ib2R5Pgo8L2h0bWw+Cg=''';
   // Sample from HTML 4.01 Specification.
   message = '''
 \r\n--AaB03x\r
-Content-Disposition: form-data; name=\"submit-name\"\r
+Content-Disposition: form-data; name="submit-name"\r
 \r
 Larry\r
 --AaB03x\r
-Content-Disposition: form-data; name=\"files\"; filename=\"file1.txt\"\r
+Content-Disposition: form-data; name="files"; filename="file1.txt"\r
 Content-Type: text/plain\r
 \r
 ... contents of file1.txt ...\r
 --AaB03x--\r\n''';
   headers1 = <String, String>{
-    'content-disposition': 'form-data; name=\"submit-name\"'
+    'content-disposition': 'form-data; name="submit-name"'
   };
   headers2 = <String, String>{
     'content-type': 'text/plain',
-    'content-disposition': 'form-data; name=\"files\"; filename=\"file1.txt\"'
+    'content-disposition': 'form-data; name="files"; filename="file1.txt"'
   };
   body1 = 'Larry';
   body2 = '... contents of file1.txt ...';
@@ -294,33 +294,33 @@ Content-Type: text/plain\r
 
   message = '''
 \r\n------WebKitFormBoundaryQ3cgYAmGRF8yOeYB\r
-Content-Disposition: form-data; name=\"text_input\"\r
+Content-Disposition: form-data; name="text_input"\r
 \r
 text\r
 ------WebKitFormBoundaryQ3cgYAmGRF8yOeYB\r
-Content-Disposition: form-data; name=\"password_input\"\r
+Content-Disposition: form-data; name="password_input"\r
 \r
 password\r
 ------WebKitFormBoundaryQ3cgYAmGRF8yOeYB\r
-Content-Disposition: form-data; name=\"checkbox_input\"\r
+Content-Disposition: form-data; name="checkbox_input"\r
 \r
 on\r
 ------WebKitFormBoundaryQ3cgYAmGRF8yOeYB\r
-Content-Disposition: form-data; name=\"radio_input\"\r
+Content-Disposition: form-data; name="radio_input"\r
 \r
 on\r
 ------WebKitFormBoundaryQ3cgYAmGRF8yOeYB--\r\n''';
   headers1 = <String, String>{
-    'content-disposition': 'form-data; name=\"text_input\"'
+    'content-disposition': 'form-data; name="text_input"'
   };
   headers2 = <String, String>{
-    'content-disposition': 'form-data; name=\"password_input\"'
+    'content-disposition': 'form-data; name="password_input"'
   };
   var headers3 = <String, String>{
-    'content-disposition': 'form-data; name=\"checkbox_input\"'
+    'content-disposition': 'form-data; name="checkbox_input"'
   };
   var headers4 = <String, String>{
-    'content-disposition': 'form-data; name=\"radio_input\"'
+    'content-disposition': 'form-data; name="radio_input"'
   };
   body1 = 'text';
   body2 = 'password';
@@ -332,19 +332,19 @@ on\r
   // Same form from Firefox.
   message = '''
 \r\n-----------------------------52284550912143824192005403738\r
-Content-Disposition: form-data; name=\"text_input\"\r
+Content-Disposition: form-data; name="text_input"\r
 \r
 text\r
 -----------------------------52284550912143824192005403738\r
-Content-Disposition: form-data; name=\"password_input\"\r
+Content-Disposition: form-data; name="password_input"\r
 \r
 password\r
 -----------------------------52284550912143824192005403738\r
-Content-Disposition: form-data; name=\"checkbox_input\"\r
+Content-Disposition: form-data; name="checkbox_input"\r
 \r
 on\r
 -----------------------------52284550912143824192005403738\r
-Content-Disposition: form-data; name=\"radio_input\"\r
+Content-Disposition: form-data; name="radio_input"\r
 \r
 on\r
 -----------------------------52284550912143824192005403738--\r\n''';
@@ -357,19 +357,19 @@ on\r
   // And Internet Explorer
   message = '''
 \r\n-----------------------------7dc8f38c60326\r
-Content-Disposition: form-data; name=\"text_input\"\r
+Content-Disposition: form-data; name="text_input"\r
 \r
 text\r
 -----------------------------7dc8f38c60326\r
-Content-Disposition: form-data; name=\"password_input\"\r
+Content-Disposition: form-data; name="password_input"\r
 \r
 password\r
 -----------------------------7dc8f38c60326\r
-Content-Disposition: form-data; name=\"checkbox_input\"\r
+Content-Disposition: form-data; name="checkbox_input"\r
 \r
 on\r
 -----------------------------7dc8f38c60326\r
-Content-Disposition: form-data; name=\"radio_input\"\r
+Content-Disposition: form-data; name="radio_input"\r
 \r
 on\r
 -----------------------------7dc8f38c60326--\r\n''';
