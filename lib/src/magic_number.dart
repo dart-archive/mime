@@ -65,4 +65,37 @@ const List<MagicNumber> initialMagicNumbers = [
     0xFF
   ]),
   MagicNumber('model/gltf-binary', [0x46, 0x54, 0x6C, 0x67]),
+
+  /// The WebP file format is based on the RIFF document format.
+  /// -> 4 bytes have the ASCII characters 'R' 'I' 'F' 'F'.
+  /// -> 4 bytes indicating the size of the file
+  /// -> 4 bytes have the ASCII characters 'W' 'E' 'B' 'P'.
+  /// https://developers.google.com/speed/webp/docs/riff_container
+  MagicNumber('image/webp', [
+    0x52,
+    0x49,
+    0x46,
+    0x46,
+    0x00,
+    0x00,
+    0x00,
+    0x00,
+    0x57,
+    0x45,
+    0x42,
+    0x50
+  ], mask: [
+    0xFF,
+    0xFF,
+    0xFF,
+    0xFF,
+    0x00,
+    0x00,
+    0x00,
+    0x00,
+    0xFF,
+    0xFF,
+    0xFF,
+    0xFF
+  ])
 ];

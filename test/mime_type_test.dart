@@ -40,6 +40,7 @@ void main() {
       _expectMimeType('file.pdf', 'application/pdf');
       _expectMimeType('file.tiff', 'image/tiff');
       _expectMimeType('file.tif', 'image/tiff');
+      _expectMimeType('file.webp', 'image/webp');
     });
 
     test('unknown-mime-type', () {
@@ -86,6 +87,20 @@ void main() {
         0x67,
         0x70,
         0x35
+      ]);
+      _expectMimeType('file', 'image/webp', headerBytes: [
+        0x52,
+        0x49,
+        0x46,
+        0x46,
+        0xE2,
+        0x4A,
+        0x01,
+        0x00,
+        0x57,
+        0x45,
+        0x42,
+        0x50
       ]);
     });
   });
