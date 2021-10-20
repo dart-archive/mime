@@ -41,6 +41,9 @@ void main() {
       _expectMimeType('file.tiff', 'image/tiff');
       _expectMimeType('file.tif', 'image/tiff');
       _expectMimeType('file.webp', 'image/webp');
+      _expectMimeType('file.mp3', 'audio/mpeg');
+      _expectMimeType('file.aac', 'audio/x-aac');
+      _expectMimeType('file.ogg', 'audio/ogg');
     });
 
     test('unknown-mime-type', () {
@@ -102,6 +105,12 @@ void main() {
         0x42,
         0x50
       ]);
+      _expectMimeType('file', 'audio/mpeg',
+          headerBytes: [0x49, 0x44, 0x33, 0x0D, 0x0A, 0x1A, 0x0A]);
+      _expectMimeType('file', 'audio/x-aac',
+          headerBytes: [0xFF, 0xF1, 0x0D, 0x0A, 0x1A, 0x0A]);
+      _expectMimeType('file', 'audio/ogg',
+          headerBytes: [0x4F, 0x70, 0x75, 0x0D, 0x0A, 0x1A, 0x0A]);
     });
   });
 
