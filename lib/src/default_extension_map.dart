@@ -10,7 +10,7 @@ const Map<String, String> defaultExtensionMap = <String, String>{
   '3gp': 'video/3gpp',
   '7z': 'application/x-7z-compressed',
   'aab': 'application/x-authorware-bin',
-  'aac': 'audio/x-aac',
+  'aac': 'audio/aac',
   'aam': 'application/x-authorware-map',
   'aas': 'application/x-authorware-seg',
   'abw': 'application/x-abiword',
