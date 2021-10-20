@@ -39,7 +39,7 @@ const List<MagicNumber> initialMagicNumbers = [
   MagicNumber('image/tiff', [0x4D, 0x4D, 0x00, 0x2A]),
   MagicNumber('audio/aac', [0xFF, 0xF1]),
   MagicNumber('audio/aac', [0xFF, 0xF9]),
-  MagicNumber('audio/webm', [0x1A, 0x45, 0xDF, 0xA3]),
+  MagicNumber('audio/weba', [0x1A, 0x45, 0xDF, 0xA3]),
   // mp3
   MagicNumber('audio/mpeg', [0x49, 0x44, 0x33]),
   MagicNumber('audio/mpeg', [0xFF, 0xFB]),
