@@ -465,6 +465,7 @@ const Map<String, String> defaultExtensionMap = <String, String>{
   'mp2a': 'audio/mpeg',
   'mp3': 'audio/mpeg',
   'mp4': 'video/mp4',
+  'ts': 'video/ts',
   'mp4a': 'audio/mp4',
   'mp4s': 'application/mp4',
   'mp4v': 'video/mp4',
