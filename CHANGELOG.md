@@ -1,3 +1,9 @@
+# 1.0.2
+
+* Add audio/x-aiff mimeType lookup by header bytes.
+* Add audio/x-flac mimeType lookup by header bytes.
+* Add audio/x-wav mimeType lookup by header bytes.
+
 # 1.0.1
 
 * Add image/webp mimeType lookup by header bytes.
