@@ -1,12 +1,9 @@
-# 1.0.3
-
-* Add `audio/m4a` mimeType lookup by file path.
-
 # 1.0.2
 
 * Add audio/x-aiff mimeType lookup by header bytes.
 * Add audio/x-flac mimeType lookup by header bytes.
 * Add audio/x-wav mimeType lookup by header bytes.
+* Add audio/m4a mimeType lookup by file path.
 
 # 1.0.1
 
