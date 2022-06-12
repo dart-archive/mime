@@ -1,3 +1,7 @@
+# 1.0.3
+
+* Add application/toml mimeType lookup by file path.
+
 # 1.0.2
 
 * Add audio/x-aiff mimeType lookup by header bytes.

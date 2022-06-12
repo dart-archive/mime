@@ -43,6 +43,7 @@ void main() {
       _expectMimeType('file.webp', 'image/webp');
       _expectMimeType('file.aiff', 'audio/x-aiff');
       _expectMimeType('file.m4a', 'audio/mp4');
+      _expectMimeType('file.toml', 'application/toml');
     });
 
     test('unknown-mime-type', () {
