@@ -43,10 +43,12 @@ void main() {
       _expectMimeType('file.webp', 'image/webp');
       _expectMimeType('file.aiff', 'audio/x-aiff');
       _expectMimeType('file.m4a', 'audio/mp4');
+      _expectMimeType('file.tar.gz', 'application/x-tar');
     });
 
     test('unknown-mime-type', () {
       _expectMimeType('file.unsupported-extension', null);
+      _expectMimeType('file.tar.gz.unsupported-extension', null);
     });
 
     test('by-header-bytes', () {

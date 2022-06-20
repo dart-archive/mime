@@ -787,6 +787,7 @@ const Map<String, String> defaultExtensionMap = <String, String>{
   'taglet': 'application/vnd.mynfc',
   'tao': 'application/vnd.tao.intent-module-archive',
   'tar': 'application/x-tar',
+  'tar.gz': 'application/x-tar',
   'tcap': 'application/vnd.3gpp2.tcap',
   'tcl': 'application/x-tcl',
   'teacher': 'application/vnd.smart.teacher',
@@ -996,3 +997,6 @@ const Map<String, String> defaultExtensionMap = <String, String>{
   'zirz': 'application/vnd.zul',
   'zmm': 'application/vnd.handheld-entertainment+xml',
 };
+
+final RegExp defaultExtensionMapRegExp =
+    RegExp('(${defaultExtensionMap.keys.join('|')})\$');
