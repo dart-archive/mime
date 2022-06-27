@@ -77,7 +77,7 @@ class MimeTypeResolver {
         if (result != null) return result;
       }
     }
-    var ext = _matchExtension(path);
+    var ext = _ext(path);
     result = _extensionMap[ext];
     if (result != null) return result;
     if (_useDefault) {
@@ -115,12 +115,9 @@ class MimeTypeResolver {
     return null;
   }
 
-  static String _matchExtension(String path) {
-    final extensionMatch =
-        defaultExtensionMapRegExp.firstMatch(path.toLowerCase());
-    if (extensionMatch != null) {
-      return extensionMatch.group(1) ?? path;
-    }
-    return path;
+  static String _ext(String path) {
+    var index = path.lastIndexOf('.');
+    if (index < 0 || index + 1 >= path.length) return path;
+    return path.substring(index + 1).toLowerCase();
   }
 }

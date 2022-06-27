@@ -800,6 +800,7 @@ const Map<String, String> defaultExtensionMap = <String, String>{
   'tfi': 'application/thraud+xml',
   'tfm': 'application/x-tex-tfm',
   'tga': 'image/x-tga',
+  'tgz': 'application/gzip',
   'thmx': 'application/vnd.ms-officetheme',
   'tif': 'image/tiff',
   'tiff': 'image/tiff',
@@ -997,6 +998,3 @@ const Map<String, String> defaultExtensionMap = <String, String>{
   'zirz': 'application/vnd.zul',
   'zmm': 'application/vnd.handheld-entertainment+xml',
 };
-
-final RegExp defaultExtensionMapRegExp =
-    RegExp('(${defaultExtensionMap.keys.join('|')})\$');
