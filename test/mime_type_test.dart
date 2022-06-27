@@ -43,7 +43,9 @@ void main() {
       _expectMimeType('file.webp', 'image/webp');
       _expectMimeType('file.aiff', 'audio/x-aiff');
       _expectMimeType('file.m4a', 'audio/mp4');
-      _expectMimeType('file.tar.gz', 'application/x-tar');
+      _expectMimeType('file.tar.gz', 'application/gzip');
+      _expectMimeType('file.gz', 'application/gzip');
+      _expectMimeType('file.tgz', 'application/gzip');
     });
 
     test('unknown-mime-type', () {
