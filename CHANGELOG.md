@@ -1,5 +1,6 @@
 # 1.0.3
 
+* Add application/toml mimeType lookup by extension.
 * Add image/avif mimeType lookup by extension.
 * Add image/heic mimeType lookup by extension.
 

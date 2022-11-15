@@ -805,6 +805,8 @@ const Map<String, String> defaultExtensionMap = <String, String>{
   'tif': 'image/tiff',
   'tiff': 'image/tiff',
   'tmo': 'application/vnd.tmobile-livetv',
+  // Source: https://toml.io/en/v1.0.0#mime-type
+  'toml': 'application/toml',
   'torrent': 'application/x-bittorrent',
   'tpl': 'application/vnd.groove-tool-template',
   'tpt': 'application/vnd.trid.tpt',
