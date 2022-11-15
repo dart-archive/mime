@@ -167,5 +167,7 @@ const List<MagicNumber> initialMagicNumbers = [
     0xFF,
     0xFF,
     0xFF
-  ])
+  ]),
+
+  MagicNumber('font/woff2', [0x77, 0x4f, 0x46, 0x32]),
 ];
