@@ -1,3 +1,39 @@
+# 1.0.3
+
+* Add application/toml mimeType lookup by extension.
+* Add audio/aac mimeType lookup by header bytes.
+* Add audio/mpeg mimeType lookup by header bytes.
+* Add audio/ogg mimeType lookup by header bytes.
+* Add audio/weba mimeType lookup by header bytes.
+* Add font/woff2 lookup by extension and header bytes.
+* Add image/avif mimeType lookup by extension.
+* Add image/heic mimeType lookup by extension.
+* Add image/heif mimeType lookup by extension.
+* Change audio/x-aac to audio/aac when detected by extension.
+
+# 1.0.2
+
+* Add audio/x-aiff mimeType lookup by header bytes.
+* Add audio/x-flac mimeType lookup by header bytes.
+* Add audio/x-wav mimeType lookup by header bytes.
+* Add audio/mp4 mimeType lookup by file path.
+
+# 1.0.1
+
+* Add image/webp mimeType lookup by header bytes.
+
+# 1.0.0
+
+* Stable null safety release.
+
+# 1.0.0-nullsafety.0
+
+* Update to null safety.
+
+# 0.9.7
+
+* Add `extensionFromMime` utility function.
+
 # 0.9.6+3
 
 * Change the mime type for Dart source from `application/dart` to `text/x-dart`.

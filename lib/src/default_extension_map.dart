@@ -2,10 +2,7 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-library mime.extension_map;
-
-// TODO(ajohnsen): Use const map once Issue 7559 is fixed.
-final Map<String, String> defaultExtensionMap = <String, String>{
+const Map<String, String> defaultExtensionMap = <String, String>{
   '123': 'application/vnd.lotus-1-2-3',
   '3dml': 'text/vnd.in3d.3dml',
   '3ds': 'image/x-3ds',
@@ -13,7 +10,7 @@ final Map<String, String> defaultExtensionMap = <String, String>{
   '3gp': 'video/3gpp',
   '7z': 'application/x-7z-compressed',
   'aab': 'application/x-authorware-bin',
-  'aac': 'audio/x-aac',
+  'aac': 'audio/aac',
   'aam': 'application/x-authorware-map',
   'aas': 'application/x-authorware-seg',
   'abw': 'application/x-abiword',
@@ -51,6 +48,7 @@ final Map<String, String> defaultExtensionMap = <String, String>{
   'atx': 'application/vnd.antix.game-component',
   'au': 'audio/basic',
   'avi': 'video/x-msvideo',
+  'avif': 'image/avif',
   'aw': 'application/applixware',
   'azf': 'application/vnd.airzip.filesecure.azf',
   'azs': 'application/vnd.airzip.filesecure.azs',
@@ -311,6 +309,8 @@ final Map<String, String> defaultExtensionMap = <String, String>{
   'hal': 'application/vnd.hal+xml',
   'hbci': 'application/vnd.hbci',
   'hdf': 'application/x-hdf',
+  'heic': 'image/heic',
+  'heif': 'image/heif',
   'hh': 'text/x-c',
   'hlp': 'application/winhlp',
   'hpgl': 'application/vnd.hp-hpgl',
@@ -416,6 +416,8 @@ final Map<String, String> defaultExtensionMap = <String, String>{
   'm3a': 'audio/mpeg',
   'm3u': 'audio/x-mpegurl',
   'm3u8': 'application/vnd.apple.mpegurl',
+  // Source: https://www.rfc-editor.org/rfc/rfc4337#page-3
+  'm4a': 'audio/mp4',
   'm4u': 'video/vnd.mpegurl',
   'm4v': 'video/x-m4v',
   'ma': 'application/mathematica',
@@ -804,6 +806,8 @@ final Map<String, String> defaultExtensionMap = <String, String>{
   'tif': 'image/tiff',
   'tiff': 'image/tiff',
   'tmo': 'application/vnd.tmobile-livetv',
+  // Source: https://toml.io/en/v1.0.0#mime-type
+  'toml': 'application/toml',
   'torrent': 'application/x-bittorrent',
   'tpl': 'application/vnd.groove-tool-template',
   'tpt': 'application/vnd.trid.tpt',
@@ -912,6 +916,7 @@ final Map<String, String> defaultExtensionMap = <String, String>{
   'wmx': 'video/x-ms-wmx',
   'wmz': 'application/x-ms-wmz',
   'woff': 'application/x-font-woff',
+  'woff2': 'font/woff2',
   'wpd': 'application/vnd.wordperfect',
   'wpl': 'application/vnd.ms-wpl',
   'wps': 'application/vnd.ms-works',
