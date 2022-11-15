@@ -1,6 +1,7 @@
 # 1.0.3
 
 * Add image/avif mimeType lookup by extension.
+* Add image/heic mimeType lookup by extension.
 
 # 1.0.2
 
