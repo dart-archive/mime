@@ -4,6 +4,7 @@
 * Add font/woff2 lookup by extension and header bytes.
 * Add image/avif mimeType lookup by extension.
 * Add image/heic mimeType lookup by extension.
+* Add image/heif mimeType lookup by extension.
 
 # 1.0.2
 

@@ -310,6 +310,7 @@ const Map<String, String> defaultExtensionMap = <String, String>{
   'hbci': 'application/vnd.hbci',
   'hdf': 'application/x-hdf',
   'heic': 'image/heic',
+  'heif': 'image/heif',
   'hh': 'text/x-c',
   'hlp': 'application/winhlp',
   'hpgl': 'application/vnd.hp-hpgl',
