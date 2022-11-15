@@ -1,5 +1,6 @@
 # 1.0.3
 
+* Add application/manifest+json lookup by extension.
 * Add application/toml mimeType lookup by extension.
 * Add audio/aac mimeType lookup by header bytes.
 * Add audio/mpeg mimeType lookup by header bytes.

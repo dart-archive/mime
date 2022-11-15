@@ -898,6 +898,8 @@ const Map<String, String> defaultExtensionMap = <String, String>{
   'wdp': 'image/vnd.ms-photo',
   'weba': 'audio/webm',
   'webm': 'video/webm',
+  // Source: https://w3c.github.io/manifest/#media-type-registration
+  'webmanifest': 'application/manifest+json',
   'webp': 'image/webp',
   'wg': 'application/vnd.pmi.widget',
   'wgt': 'application/widget',
