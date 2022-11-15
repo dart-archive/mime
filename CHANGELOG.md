@@ -1,10 +1,15 @@
 # 1.0.3
 
 * Add application/toml mimeType lookup by extension.
+* Add audio/aac mimeType lookup by header bytes.
+* Add audio/mpeg mimeType lookup by header bytes.
+* Add audio/ogg mimeType lookup by header bytes.
+* Add audio/weba mimeType lookup by header bytes.
 * Add font/woff2 lookup by extension and header bytes.
 * Add image/avif mimeType lookup by extension.
 * Add image/heic mimeType lookup by extension.
 * Add image/heif mimeType lookup by extension.
+* Change audio/x-aac to audio/aac when detected by extension.
 
 # 1.0.2
 
