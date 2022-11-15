@@ -44,6 +44,9 @@ void main() {
       _expectMimeType('file.mp3', 'audio/mpeg');
       _expectMimeType('file.aac', 'audio/aac');
       _expectMimeType('file.ogg', 'audio/ogg');
+      _expectMimeType('file.aiff', 'audio/x-aiff');
+      _expectMimeType('file.m4a', 'audio/mp4');
+      _expectMimeType('file.toml', 'application/toml');
     });
 
     test('unknown-mime-type', () {
@@ -111,6 +114,36 @@ void main() {
           headerBytes: [0xFF, 0xF1, 0x0D, 0x0A, 0x1A, 0x0A]);
       _expectMimeType('file', 'audio/ogg',
           headerBytes: [0x4F, 0x70, 0x75, 0x0D, 0x0A, 0x1A, 0x0A]);
+      _expectMimeType('file', 'audio/x-aiff', headerBytes: [
+        0x46,
+        0x4F,
+        0x52,
+        0x4D,
+        0x04,
+        0x0B,
+        0xEF,
+        0xF4,
+        0x41,
+        0x49,
+        0x46,
+        0x46
+      ]);
+      _expectMimeType('file', 'audio/x-flac',
+          headerBytes: [0x66, 0x4C, 0x61, 0x43]);
+      _expectMimeType('file', 'audio/x-wav', headerBytes: [
+        0x52,
+        0x49,
+        0x46,
+        0x46,
+        0xA6,
+        0x4E,
+        0x70,
+        0x03,
+        0x57,
+        0x41,
+        0x56,
+        0x45
+      ]);
     });
   });
 
