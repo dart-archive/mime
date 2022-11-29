@@ -152,6 +152,7 @@ const Map<String, String> defaultExtensionMap = <String, String>{
   'dataless': 'application/vnd.fdsn.seed',
   'davmount': 'application/davmount+xml',
   'dbk': 'application/docbook+xml',
+  'dcm': 'application/dicom',
   'dcr': 'application/x-director',
   'dcurl': 'text/vnd.curl.dcurl',
   'dd2': 'application/vnd.oma.dd2+xml',
