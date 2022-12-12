@@ -13,8 +13,8 @@ void _writeInChunks(
   if (chunkSize == -1) chunkSize = data.length;
 
   for (var pos = 0; pos < data.length; pos += chunkSize) {
-    var remaining = data.length - pos;
-    var writeLength = min(chunkSize, remaining);
+    final remaining = data.length - pos;
+    final writeLength = min(chunkSize, remaining);
     controller.add(data.sublist(pos, pos + writeLength));
   }
   controller.close();
@@ -26,20 +26,20 @@ void _runParseTest(
   String message,
   String boundary,
   TestMode mode, [
-  List<Map>? expectedHeaders,
+  List<Map<String, String>>? expectedHeaders,
   List<String?>? expectedParts,
   bool expectError = false,
 ]) {
-  Future testWrite(List<int> data, [int chunkSize = -1]) {
-    var controller = StreamController<List<int>>(sync: true);
+  Future<void> testWrite(List<int> data, [int chunkSize = -1]) {
+    final controller = StreamController<List<int>>(sync: true);
 
-    var stream =
+    final stream =
         controller.stream.transform(MimeMultipartTransformer(boundary));
     var i = 0;
-    var completer = Completer();
-    var futures = <Future>[];
+    final completer = Completer<void>();
+    final futures = <Future<void>>[];
     stream.listen((multipart) {
-      var part = i++;
+      final part = i++;
       if (expectedHeaders != null) {
         expect(multipart.headers, equals(expectedHeaders[part]));
       }
@@ -71,10 +71,10 @@ void _runParseTest(
           break;
 
         case TestMode.pauseResume:
-          var completer = Completer();
+          final completer = Completer<void>();
           futures.add(completer.future);
-          var buffer = [];
-          late StreamSubscription subscription;
+          final buffer = <int>[];
+          late StreamSubscription<List<int>> subscription;
           subscription = multipart.listen((data) {
             buffer.addAll(data);
             subscription.pause();
@@ -89,6 +89,7 @@ void _runParseTest(
           break;
       }
     }, onError: (Object error) {
+      // ignore: only_throw_errors
       if (!expectError) throw error;
     }, onDone: () {
       if (expectedParts != null) {
@@ -102,11 +103,11 @@ void _runParseTest(
     return completer.future;
   }
 
-  Future testFirstPartOnly(List<int> data, [int chunkSize = -1]) {
-    var completer = Completer();
-    var controller = StreamController<List<int>>(sync: true);
+  Future<void> testFirstPartOnly(List<int> data, [int chunkSize = -1]) {
+    final completer = Completer<void>();
+    final controller = StreamController<List<int>>(sync: true);
 
-    var stream =
+    final stream =
         controller.stream.transform(MimeMultipartTransformer(boundary));
 
     stream.first.then((multipart) {
@@ -129,17 +130,17 @@ void _runParseTest(
     return completer.future;
   }
 
-  Future testCompletePartAfterCancel(List<int> data, int parts,
+  Future<void> testCompletePartAfterCancel(List<int> data, int parts,
       [int chunkSize = -1]) {
-    var completer = Completer();
-    var controller = StreamController<List<int>>(sync: true);
-    var stream =
+    final completer = Completer<void>();
+    final controller = StreamController<List<int>>(sync: true);
+    final stream =
         controller.stream.transform(MimeMultipartTransformer(boundary));
-    late StreamSubscription subscription;
+    late StreamSubscription<void> subscription;
     var i = 0;
-    var futures = <Future>[];
+    final futures = <Future<void>>[];
     subscription = stream.listen((multipart) {
-      var partIndex = i;
+      final partIndex = i;
 
       if (partIndex >= parts) {
         throw StateError('Expected no more parts, but got one.');
@@ -169,7 +170,7 @@ void _runParseTest(
 
   // Test parsing the data three times delivering the data in
   // different chunks.
-  var data = message.codeUnits;
+  final data = message.codeUnits;
   test('test', () {
     expect(
         Future.wait([
@@ -210,7 +211,7 @@ void _runParseTest(
 }
 
 void _testParse(String message, String boundary,
-    [List<Map>? expectedHeaders,
+    [List<Map<String, String>>? expectedHeaders,
     List<String?>? expectedParts,
     bool expectError = false]) {
   _runParseTest(message, boundary, TestMode.immediateListen, expectedHeaders,
@@ -316,16 +317,16 @@ on\r
   headers2 = <String, String>{
     'content-disposition': 'form-data; name="password_input"'
   };
-  var headers3 = <String, String>{
+  final headers3 = <String, String>{
     'content-disposition': 'form-data; name="checkbox_input"'
   };
-  var headers4 = <String, String>{
+  final headers4 = <String, String>{
     'content-disposition': 'form-data; name="radio_input"'
   };
   body1 = 'text';
   body2 = 'password';
-  var body3 = 'on';
-  var body4 = 'on';
+  const body3 = 'on';
+  const body4 = 'on';
   _testParse(message, '----WebKitFormBoundaryQ3cgYAmGRF8yOeYB',
       [headers1, headers2, headers3, headers4], [body1, body2, body3, body4]);
 
@@ -412,7 +413,7 @@ Content-Type: text/plain\r
 --\r\r\r
 -\r\r
 --boundary--\r\n''';
-  var headers = <String, String>{'content-type': 'text/plain'};
+  final headers = <String, String>{'content-type': 'text/plain'};
   body1 = '''
 -\r
 --\r
@@ -451,7 +452,7 @@ Body2\r
 
 void _testParseInvalid() {
   // Missing end boundary.
-  var message = '''
+  const message = '''
 \r
 --xxx\r
 \r

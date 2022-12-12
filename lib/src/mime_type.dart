@@ -77,7 +77,7 @@ class MimeTypeResolver {
         if (result != null) return result;
       }
     }
-    var ext = _ext(path);
+    final ext = _ext(path);
     result = _extensionMap[ext];
     if (result != null) return result;
     if (_useDefault) {
@@ -116,7 +116,7 @@ class MimeTypeResolver {
   }
 
   static String _ext(String path) {
-    var index = path.lastIndexOf('.');
+    final index = path.lastIndexOf('.');
     if (index < 0 || index + 1 >= path.length) return path;
     return path.substring(index + 1).toLowerCase();
   }
