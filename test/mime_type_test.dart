@@ -36,6 +36,7 @@ void main() {
       _expectMimeType('file.c', 'text/x-c');
       _expectMimeType('file.css', 'text/css');
       _expectMimeType('file.js', 'application/javascript');
+      _expectMimeType('file.mjs', 'application/javascript');
       _expectMimeType('file.ps', 'application/postscript');
       _expectMimeType('file.pdf', 'application/pdf');
       _expectMimeType('file.tiff', 'image/tiff');
