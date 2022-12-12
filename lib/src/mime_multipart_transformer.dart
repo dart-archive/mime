@@ -10,9 +10,9 @@ import 'char_code.dart' as char_code;
 import 'mime_shared.dart';
 
 Uint8List _getBoundary(String boundary) {
-  var charCodes = boundary.codeUnits;
+  final charCodes = boundary.codeUnits;
 
-  var boundaryList = Uint8List(4 + charCodes.length);
+  final boundaryList = Uint8List(4 + charCodes.length);
   // Set-up the matching boundary preceding it with CRLF and two
   // dashes.
   boundaryList[0] = char_code.cr;
