@@ -1,3 +1,9 @@
+# 1.0.4-dev
+
+* Changed `.js` to `text/javascript` per 
+  https://datatracker.ietf.org/doc/html/rfc9239.
+* Added `.mjs` as `text/javascript`.
+
 # 1.0.3
 
 * Add application/manifest+json lookup by extension.
