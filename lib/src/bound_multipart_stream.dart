@@ -93,7 +93,7 @@ class BoundMultipartStream {
 
   Stream<MimeMultipart> get stream => _controller.stream;
 
-  late StreamSubscription<List<int>> _subscription;
+  late StreamSubscription<void> _subscription;
 
   StreamController<List<int>>? _multipartController;
   Map<String, String>? _headers;
