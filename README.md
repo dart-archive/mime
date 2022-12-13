@@ -57,13 +57,3 @@ request
     .map((part) => part.fold(0, (p, d) => p + d))
     .listen((length) => print('Part with length $length'));
 ```
-
-Take a look at the `HttpBodyHandler` in the [http_server][http_server]
-package for handling different content types in an HTTP request.
-
-## Features and bugs
-
-Please file feature requests and bugs at the [issue tracker][tracker].
-
-[tracker]: https://github.com/dart-lang/mime/issues
-[http_server]: https://pub.dev/packages/http_server

@@ -35,7 +35,8 @@ void main() {
       _expectMimeType('file.cc', 'text/x-c');
       _expectMimeType('file.c', 'text/x-c');
       _expectMimeType('file.css', 'text/css');
-      _expectMimeType('file.js', 'application/javascript');
+      _expectMimeType('file.js', 'text/javascript');
+      _expectMimeType('file.mjs', 'text/javascript');
       _expectMimeType('file.ps', 'application/postscript');
       _expectMimeType('file.pdf', 'application/pdf');
       _expectMimeType('file.tiff', 'image/tiff');
@@ -149,19 +150,19 @@ void main() {
 
   group('custom-resolver', () {
     test('override-extension', () {
-      var resolver = MimeTypeResolver();
+      final resolver = MimeTypeResolver();
       resolver.addExtension('jpg', 'my-mime-type');
       _expectMimeType('file.jpg', 'my-mime-type', resolver: resolver);
     });
 
     test('fallthrough-extension', () {
-      var resolver = MimeTypeResolver();
+      final resolver = MimeTypeResolver();
       resolver.addExtension('jpg2', 'my-mime-type');
       _expectMimeType('file.jpg', 'image/jpeg', resolver: resolver);
     });
 
     test('with-mask', () {
-      var resolver = MimeTypeResolver.empty();
+      final resolver = MimeTypeResolver.empty();
       resolver.addMagicNumber([0x01, 0x02, 0x03], 'my-mime-type',
           mask: [0x01, 0xFF, 0xFE]);
       _expectMimeType('file', 'my-mime-type',
@@ -174,7 +175,7 @@ void main() {
   });
 
   test('default magic number', () {
-    var actualMaxBytes = initialMagicNumbers.fold<int>(
+    final actualMaxBytes = initialMagicNumbers.fold<int>(
       0,
       (previous, magic) => math.max(previous, magic.numbers.length),
     );
