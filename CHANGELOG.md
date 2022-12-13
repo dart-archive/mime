@@ -1,12 +1,12 @@
 # 1.0.4
 
-* Add application/dicom mimeType lookup by extension.
 
 # 1.0.4-dev
 
 * Changed `.js` to `text/javascript` per 
   https://datatracker.ietf.org/doc/html/rfc9239.
 * Added `.mjs` as `text/javascript`.
+* Add `application/dicom` mimeType lookup by extension.
 * Require Dart 2.18.
 
 # 1.0.3
