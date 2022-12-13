@@ -1,6 +1,3 @@
-# 1.0.4
-
-
 # 1.0.4-dev
 
 * Changed `.js` to `text/javascript` per 
