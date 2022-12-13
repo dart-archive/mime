@@ -26,6 +26,7 @@ void main() {
       _expectMimeType('file.dart', 'text/x-dart');
       // Test mixed-case
       _expectMimeType('file.DaRT', 'text/x-dart');
+      _expectMimeType('file.dcm', 'application/dicom');
       _expectMimeType('file.html', 'text/html');
       _expectMimeType('file.xhtml', 'application/xhtml+xml');
       _expectMimeType('file.jpeg', 'image/jpeg');

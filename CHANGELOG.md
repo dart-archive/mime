@@ -1,3 +1,7 @@
+# 1.0.4
+
+* Add application/dicom mimeType lookup by extension.
+
 # 1.0.4-dev
 
 * Changed `.js` to `text/javascript` per 
