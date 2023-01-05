@@ -9,6 +9,7 @@
 /// [Internet media type](http://en.wikipedia.org/wiki/Internet_media_type).
 library mime;
 
+export 'src/extension.dart';
 export 'src/mime_multipart_transformer.dart';
 export 'src/mime_shared.dart';
 export 'src/mime_type.dart';

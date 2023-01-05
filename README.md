@@ -57,3 +57,22 @@ request
     .map((part) => part.fold(0, (p, d) => p + d))
     .listen((length) => print('Part with length $length'));
 ```
+
+## Determining file extension by MIME type
+
+The top level function `lookupExtension` can be used to determine the
+file extension of a given MIME type.
+
+```dart
+print(lookupExtension('text/html'));  // Will print html
+print(lookupExtension('image/jpeg'));  // Will print jpg
+print(lookupExtension('application/pdf'));  // Will print pdf
+```
+
+You can override the default MIME type-extension mapping using
+`addMimeType`:
+
+```dart
+addMimeType('image/jpeg', 'jpeg');
+print(lookupExtension('image/jpeg'));  // Will print jpeg
+```
