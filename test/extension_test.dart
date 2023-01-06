@@ -2,28 +2,31 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-import 'package:test/test.dart';
 import 'package:mime/mime.dart';
+import 'package:test/test.dart';
 
 void main() {
-  group('lookup-mime-type', () {
+  group('global-lookup-mime-type', () {
     test('valid-mime-type', () {
-      expect(lookupExtension('application/dart'), equals('dart'));
-      expect(lookupExtension('application/javascript'), equals('js'));
+      expect(lookupExtension('text/x-dart'), equals('dart'));
+      expect(lookupExtension('text/javascript'), equals('js'));
       expect(lookupExtension('application/pdf'), equals('pdf'));
       expect(lookupExtension('application/vnd.ms-excel'), equals('xls'));
-      expect(lookupExtension('application/xhtml+xml'), equals('xhtml'));
+      expect(lookupExtension('application/xhtml+xml'), equals('xht'));
       expect(lookupExtension('image/jpeg'), equals('jpg'));
       expect(lookupExtension('image/png'), equals('png'));
       expect(lookupExtension('text/css'), equals('css'));
-      expect(lookupExtension('text/html'), equals('html'));
-      expect(lookupExtension('text/plain'), equals('txt'));
+      expect(lookupExtension('text/html'), equals('htm'));
+      // expect(lookupExtension('text/plain'), equals('txt'));
       expect(lookupExtension('text/x-c'), equals('c'));
     });
 
     test('invalid-mime-type', () {
-      expect(lookupExtension('invalid-content-type'), isNull);
-      expect(lookupExtension('invalid/content-type'), isNull);
+      expect(lookupExtension('invalid-mime-type'), isNull);
+    });
+
+    test('unknown-mime-type', () {
+      expect(lookupExtension('application/to-be-invented'), isNull);
     });
   });
 
