@@ -3,6 +3,7 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'package:mime/mime.dart';
+import 'package:mime/src/default_extension_map.dart';
 import 'package:test/test.dart';
 
 void main() {
@@ -41,6 +42,25 @@ void main() {
       expect(lookupExtension('image/jpeg'), equals('jpg'));
       addMimeType('image/jpeg', 'jpeg');
       expect(lookupExtension('image/jpeg'), equals('jpeg'));
+    });
+
+    test('check-preferred-present-for-non-unique', () {
+      final mimeTypeToExtMap = <String, List<String>>{};
+      for (var entry in defaultExtensionMap.entries) {
+        final extensions = mimeTypeToExtMap.putIfAbsent(entry.value, () => []);
+        extensions.add(entry.key);
+      }
+      final mimeTypesWithMultipleExtensions = Map.fromEntries(mimeTypeToExtMap
+          .entries
+          .where((element) => element.value.length > 1));
+      for (var mimeType in mimeTypesWithMultipleExtensions.keys) {
+        expect(
+          hasPreferredExtension(mimeType),
+          isTrue,
+          reason: 'mimeType $mimeType with multiple extension, '
+              'does not have preferred extension defined',
+        );
+      }
     });
   });
 }

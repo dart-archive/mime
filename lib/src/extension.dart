@@ -30,3 +30,6 @@ String? lookupExtension(String mimeType) {
 void addMimeType(String mimeType, String extension) {
   _preferredExtensionsMap[mimeType.toLowerCase()] = extension.toLowerCase();
 }
+
+bool hasPreferredExtension(String mimeType) =>
+    _preferredExtensionsMap.containsKey(mimeType.toLowerCase());
