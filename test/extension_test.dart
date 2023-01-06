@@ -32,11 +32,13 @@ void main() {
 
   group('add-mime-type', () {
     test('new-mime-type', () {
+      expect(lookupExtension('custom/type'), isNull);
       addMimeType('custom/type', 'ct');
       expect(lookupExtension('custom/type'), equals('ct'));
     });
 
     test('overridden-mime-type', () {
+      expect(lookupExtension('image/jpeg'), equals('jpg'));
       addMimeType('image/jpeg', 'jpeg');
       expect(lookupExtension('image/jpeg'), equals('jpeg'));
     });
