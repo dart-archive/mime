@@ -14,9 +14,12 @@ final Map<String, String> _preferredExtensionsMap = <String, String>{
   'text/x-c': 'c'
 };
 
-/// Lookup file extension by a given MIME type.
+/// Lookup file extension for a given MIME type.
+///
+/// If there are multiple extensions for [mimeType], return preferred extension
+/// if defined, or the first occurrence in the map.
 /// If no extension is found, `null` is returned.
-String? lookupExtension(String mimeType) {
+String? extensionFromMimeOrNull(String mimeType) {
   final mimeTypeLC = mimeType.toLowerCase();
   if (_preferredExtensionsMap.containsKey(mimeTypeLC)) {
     return _preferredExtensionsMap[mimeTypeLC]!;
@@ -25,6 +28,9 @@ String? lookupExtension(String mimeType) {
       .firstWhereOrNull((entry) => entry.value == mimeTypeLC)
       ?.key;
 }
+
+String extensionFromMime(String mimeType, {String? orElse}) =>
+    extensionFromMimeOrNull(mimeType) ?? orElse ?? mimeType;
 
 /// Allow for a user-specified MIME type-extension mapping that overrides the
 /// default.
