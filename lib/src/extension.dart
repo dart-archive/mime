@@ -37,6 +37,3 @@ String extensionFromMime(String mimeType, {String? orElse}) =>
 void addMimeType(String mimeType, String extension) {
   _preferredExtensionsMap[mimeType.toLowerCase()] = extension.toLowerCase();
 }
-
-bool hasPreferredExtension(String mimeType) =>
-    _preferredExtensionsMap.containsKey(mimeType.toLowerCase());

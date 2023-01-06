@@ -31,3 +31,7 @@ All files in the project must start with the following header.
 Contributions made by corporations are covered by a different agreement than the
 one above, the
 [Software Grant and Corporate Contributor License Agreement](https://developers.google.com/open-source/cla/corporate).
+
+### Adding an extension to an existing MIME type
+If a MIME type ends up with multiple extensions, it is recommended to define a 
+preferred extension in `_preferredExtensionsMap` in `extension.dart` 
