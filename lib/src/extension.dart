@@ -10,8 +10,19 @@ import 'default_extension_map.dart';
 /// to the same MIME type.
 final Map<String, String> _preferredExtensionsMap = <String, String>{
   'application/vnd.ms-excel': 'xls',
+  'application/vnd.ms-powerpoint': 'ppt',
   'image/jpeg': 'jpg',
-  'text/x-c': 'c'
+  'image/tiff': 'tif',
+  'image/svg+xml': 'svg',
+  'text/calendar': 'ics',
+  'text/javascript': 'js',
+  'text/plain': 'txt',
+  'text/sgml': 'sgml',
+  'text/x-pascal': 'pas',
+  'video/mp4': 'mp4',
+  'video/mpeg': 'mpg',
+  'video/quicktime': 'mov',
+  'video/x-matroska': 'mkv',
 };
 
 /// Lookup file extension for a given MIME type.
