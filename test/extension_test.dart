@@ -10,6 +10,8 @@ void main() {
     test('valid-mime-type', () {
       expect(extensionFromMime('text/x-dart'), equals('dart'));
       expect(extensionFromMime('text/javascript'), equals('js'));
+      expect(extensionFromMime('application/java-archive'), equals('jar'));
+      expect(extensionFromMime('application/json'), equals('json'));
       expect(extensionFromMime('application/pdf'), equals('pdf'));
       expect(extensionFromMime('application/vnd.ms-excel'), equals('xls'));
       expect(extensionFromMime('application/xhtml+xml'), equals('xht'));
