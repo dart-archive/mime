@@ -22,7 +22,8 @@ String? lookupExtension(String mimeType) {
     return _preferredExtensionsMap[mimeTypeLC]!;
   }
   return defaultExtensionMap.entries
-      .firstWhereOrNull((entry) => entry.value == mimeTypeLC)?.key;
+      .firstWhereOrNull((entry) => entry.value == mimeTypeLC)
+      ?.key;
 }
 
 /// Allow for a user-specified MIME type-extension mapping that overrides the
