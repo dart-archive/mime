@@ -1,4 +1,4 @@
-# 1.0.4-dev
+# 1.0.4
 
 * Changed `.js` to `text/javascript` per 
   https://datatracker.ietf.org/doc/html/rfc9239.

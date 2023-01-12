@@ -1,5 +1,5 @@
 name: mime
-version: 1.0.4-dev
+version: 1.0.4
 description: >-
   Utilities for handling media (MIME) types, including determining a type from
   a file extension and file contents.
