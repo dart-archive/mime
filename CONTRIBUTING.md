@@ -34,4 +34,4 @@ one above, the
 
 ### Adding an extension to an existing MIME type
 If a MIME type ends up with multiple extensions, it is recommended to define a 
-preferred extension in `_preferredExtensionsMap` in `extension.dart` 
+preferred extension in `_preferredExtensionsMap` in [extension.dart](lib/src/extension.dart). 
