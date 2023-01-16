@@ -64,9 +64,9 @@ The top level function `lookupExtension` can be used to determine the
 file extension of a given MIME type.
 
 ```dart
-print(lookupExtension('text/html'));  // Will print html
-print(lookupExtension('image/jpeg'));  // Will print jpg
-print(lookupExtension('application/pdf'));  // Will print pdf
+print(extensionFromMime('text/html'));  // Will print html
+print(extensionFromMime('image/jpeg'));  // Will print jpg
+print(extensionFromMime('application/pdf'));  // Will print pdf
 ```
 
 You can override the default MIME type-extension mapping using
@@ -74,5 +74,5 @@ You can override the default MIME type-extension mapping using
 
 ```dart
 addMimeType('image/jpeg', 'jpeg');
-print(lookupExtension('image/jpeg'));  // Will print jpeg
+print(extensionFromMime('image/jpeg'));  // Will print jpeg
 ```
