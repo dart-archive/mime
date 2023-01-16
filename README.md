@@ -73,6 +73,7 @@ You can override the default MIME type-extension mapping using
 `addMimeType`:
 
 ```dart
+print(extensionFromMime('image/jpeg'));  // Will print jpg
 addMimeType('image/jpeg', 'jpeg');
 print(extensionFromMime('image/jpeg'));  // Will print jpeg
 ```
