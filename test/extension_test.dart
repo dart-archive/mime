@@ -40,6 +40,9 @@ void main() {
       expect(extensionFromMime('application/to-be-invented'),
           'application/to-be-invented');
 
+      expect(extensionFromMime('application/to-be-invented', orElse: 'unknown'),
+          'unknown');
+
       expect(extensionFromMimeOrNull('application/to-be-invented'), isNull);
     });
   });
