@@ -19,7 +19,7 @@ void main() {
       expect(extensionFromMime('image/png'), equals('png'));
       expect(extensionFromMime('text/css'), equals('css'));
       expect(extensionFromMime('text/html'), equals('htm'));
-      // expect(extensionFromMime('text/plain'), equals('txt'));
+      expect(extensionFromMime('text/plain'), equals('txt'));
       expect(extensionFromMime('text/x-c'), equals('c'));
     });
 
