@@ -2,8 +2,6 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-import 'package:collection/collection.dart';
-
 import 'default_extension_map.dart';
 
 /// Add an override for common extensions since different extensions may map
@@ -47,4 +45,14 @@ String extensionFromMime(String mimeType, {String? orElse}) =>
 /// default.
 void addMimeType(String mimeType, String extension) {
   _preferredExtensionsMap[mimeType.toLowerCase()] = extension.toLowerCase();
+}
+
+extension _IterableExtension<T> on Iterable<T> {
+  /// The first element satisfying [test], or `null` if there are none.
+  T? firstWhereOrNull(bool Function(T element) test) {
+    for (var element in this) {
+      if (test(element)) return element;
+    }
+    return null;
+  }
 }
