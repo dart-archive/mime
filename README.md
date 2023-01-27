@@ -60,7 +60,7 @@ request
 
 ## Determining file extension by MIME type
 
-The top level function `lookupExtension` can be used to determine the
+The top level function `extensionFromMime` can be used to determine the
 file extension of a given MIME type.
 
 ```dart
