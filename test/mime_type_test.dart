@@ -49,6 +49,7 @@ void main() {
       _expectMimeType('file.aiff', 'audio/x-aiff');
       _expectMimeType('file.m4a', 'audio/mp4');
       _expectMimeType('file.toml', 'application/toml');
+      _expectMimeType('file.md', 'text/markdown');
     });
 
     test('unknown-mime-type', () {
