@@ -96,6 +96,48 @@ void main() {
         0x70,
         0x35
       ]);
+      _expectMimeType('file.mp4', 'video/mp4', headerBytes: [
+        0x00,
+        0x00,
+        0x00,
+        0x04,
+        0x66,
+        0x74,
+        0x79,
+        0x70,
+        0x6d,
+        0x70,
+        0x34,
+        0x32
+      ]);
+      _expectMimeType('file', 'video/mp4', headerBytes: [
+        0x00,
+        0x00,
+        0x00,
+        0x04,
+        0x66,
+        0x74,
+        0x79,
+        0x70,
+        0x33,
+        0x67,
+        0x70,
+        0x35
+      ]);
+      _expectMimeType('file', 'video/mp4', headerBytes: [
+        0x00,
+        0x00,
+        0x00,
+        0x04,
+        0x66,
+        0x74,
+        0x79,
+        0x70,
+        0x6d,
+        0x70,
+        0x34,
+        0x32
+      ]);
       _expectMimeType('file', 'image/webp', headerBytes: [
         0x52,
         0x49,
