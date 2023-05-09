@@ -1,3 +1,7 @@
+# 1.0.5
+
+* Add `text/markdown` mimeType lookup by extension.
+
 # 1.0.4
 
 * Changed `.js` to `text/javascript` per 

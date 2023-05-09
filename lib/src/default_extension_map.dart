@@ -434,6 +434,9 @@ const Map<String, String> defaultExtensionMap = <String, String>{
   'mc1': 'application/vnd.medcalcdata',
   'mcd': 'application/vnd.mcd',
   'mcurl': 'text/vnd.curl.mcurl',
+  // https://www.rfc-editor.org/rfc/rfc7763
+  'md': 'text/markdown',
+  'markdown': 'text/markdown',
   'mdb': 'application/x-msaccess',
   'mdi': 'image/vnd.ms-modi',
   'me': 'text/troff',
