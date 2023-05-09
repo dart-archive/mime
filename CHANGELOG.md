@@ -1,6 +1,7 @@
-# 1.0.5
+# 1.0.5-wip
 
-* Add m4b mimeType lookup by extension. 
+* Add m4b mimeType lookup by extension.
+* Add `text/markdown` mimeType lookup by extension.
 
 # 1.0.4
 
