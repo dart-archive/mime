@@ -3,4 +3,3 @@
 .pub/
 packages
 pubspec.lock
-build/
