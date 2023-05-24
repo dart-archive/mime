@@ -1,5 +1,6 @@
 # 1.0.5-wip
 
+* Update video/mp4 mimeType lookup by header bytes.
 * Add m4b mimeType lookup by extension.
 * Add `text/markdown` mimeType lookup by extension.
 
