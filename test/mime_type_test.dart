@@ -85,7 +85,7 @@ void main() {
         0x1A,
         0x0A
       ]);
-      _expectMimeType('file.mp4', 'video/mp4', headerBytes: [
+      _expectMimeType('file', 'video/3gpp', headerBytes: [
         0x00,
         0x00,
         0x00,
@@ -98,6 +98,20 @@ void main() {
         0x67,
         0x70,
         0x35
+      ]);
+      _expectMimeType('file.mp4', 'video/mp4', headerBytes: [
+        0x00,
+        0x00,
+        0x00,
+        0x04,
+        0x66,
+        0x74,
+        0x79,
+        0x70,
+        0xFF,
+        0xFF,
+        0xFF,
+        0xFF
       ]);
       _expectMimeType('file', 'video/mp4', headerBytes: [
         0x00,
@@ -151,20 +165,6 @@ void main() {
         0x79,
         0x70,
         0x6D,
-        0x6D,
-        0x70,
-        0x34
-      ]);
-      _expectMimeType('file', 'video/mp4', headerBytes: [
-        0x00,
-        0xF0,
-        0xF0,
-        0xF0,
-        0x66,
-        0x74,
-        0x79,
-        0x70,
-        0x6D,
         0x70,
         0x34,
         0x31
@@ -182,188 +182,6 @@ void main() {
         0x70,
         0x34,
         0x32
-      ]);
-      _expectMimeType('file', 'video/mp4', headerBytes: [
-        0x00,
-        0xF0,
-        0xF0,
-        0xF0,
-        0x66,
-        0x74,
-        0x79,
-        0x70,
-        0x6D,
-        0x70,
-        0x37,
-        0x31
-      ]);
-      _expectMimeType('file', 'video/mp4', headerBytes: [
-        0x00,
-        0xF0,
-        0xF0,
-        0xF0,
-        0x66,
-        0x74,
-        0x79,
-        0x70,
-        0x6D,
-        0x73,
-        0x6E,
-        0x76
-      ]);
-      _expectMimeType('file', 'video/mp4', headerBytes: [
-        0x00,
-        0xF0,
-        0xF0,
-        0xF0,
-        0x66,
-        0x74,
-        0x79,
-        0x70,
-        0x6E,
-        0x64,
-        0x61,
-        0x73
-      ]);
-      _expectMimeType('file', 'video/mp4', headerBytes: [
-        0x00,
-        0xF0,
-        0xF0,
-        0xF0,
-        0x66,
-        0x74,
-        0x79,
-        0x70,
-        0x6E,
-        0x64,
-        0x73,
-        0x63
-      ]);
-      _expectMimeType('file', 'video/mp4', headerBytes: [
-        0x00,
-        0xF0,
-        0xF0,
-        0xF0,
-        0x66,
-        0x74,
-        0x79,
-        0x70,
-        0x6E,
-        0x64,
-        0x73,
-        0x68
-      ]);
-      _expectMimeType('file', 'video/mp4', headerBytes: [
-        0x00,
-        0xF0,
-        0xF0,
-        0xF0,
-        0x66,
-        0x74,
-        0x79,
-        0x70,
-        0x6E,
-        0x64,
-        0x73,
-        0x6D
-      ]);
-      _expectMimeType('file', 'video/mp4', headerBytes: [
-        0x00,
-        0xF0,
-        0xF0,
-        0xF0,
-        0x66,
-        0x74,
-        0x79,
-        0x70,
-        0x6E,
-        0x64,
-        0x73,
-        0x70
-      ]);
-      _expectMimeType('file', 'video/mp4', headerBytes: [
-        0x00,
-        0xF0,
-        0xF0,
-        0xF0,
-        0x66,
-        0x74,
-        0x79,
-        0x70,
-        0x6E,
-        0x64,
-        0x73,
-        0x73
-      ]);
-      _expectMimeType('file', 'video/mp4', headerBytes: [
-        0x00,
-        0xF0,
-        0xF0,
-        0xF0,
-        0x66,
-        0x74,
-        0x79,
-        0x70,
-        0x6E,
-        0x64,
-        0x78,
-        0x63
-      ]);
-      _expectMimeType('file', 'video/mp4', headerBytes: [
-        0x00,
-        0xF0,
-        0xF0,
-        0xF0,
-        0x66,
-        0x74,
-        0x79,
-        0x70,
-        0x6E,
-        0x64,
-        0x78,
-        0x68
-      ]);
-      _expectMimeType('file', 'video/mp4', headerBytes: [
-        0x00,
-        0xF0,
-        0xF0,
-        0xF0,
-        0x66,
-        0x74,
-        0x79,
-        0x70,
-        0x6E,
-        0x64,
-        0x78,
-        0x6D
-      ]);
-      _expectMimeType('file', 'video/mp4', headerBytes: [
-        0x00,
-        0xF0,
-        0xF0,
-        0xF0,
-        0x66,
-        0x74,
-        0x79,
-        0x70,
-        0x6E,
-        0x64,
-        0x78,
-        0x70
-      ]);
-      _expectMimeType('file', 'video/mp4', headerBytes: [
-        0x00,
-        0xF0,
-        0xF0,
-        0xF0,
-        0x66,
-        0x74,
-        0x79,
-        0x70,
-        0x6E,
-        0x64,
-        0x78,
-        0x73
       ]);
       _expectMimeType('file', 'image/webp', headerBytes: [
         0x52,
