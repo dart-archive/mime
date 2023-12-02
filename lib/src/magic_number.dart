@@ -309,4 +309,99 @@ const List<MagicNumber> initialMagicNumbers = [
   ]),
 
   MagicNumber('font/woff2', [0x77, 0x4f, 0x46, 0x32]),
+
+  /// High Efficiency Image File Format (ISO/IEC 23008-12).
+  /// -> 4 bytes indicating the ftyp box length.
+  /// -> 4 bytes have the ASCII characters 'f' 't' 'y' 'p'.
+  /// -> 4 bytes have the ASCII characters 'h' 'e' 'i' 'c'.
+  /// https://www.iana.org/assignments/media-types/image/heic
+  MagicNumber('image/heic', [
+    0x00,
+    0x00,
+    0x00,
+    0x00,
+    0x66,
+    0x74,
+    0x79,
+    0x70,
+    0x68,
+    0x65,
+    0x69,
+    0x63
+  ], mask: [
+    0x00,
+    0x00,
+    0x00,
+    0x00,
+    0xFF,
+    0xFF,
+    0xFF,
+    0xFF,
+    0xFF,
+    0xFF,
+    0xFF,
+    0xFF
+  ]),
+
+  /// -> 4 bytes indicating the ftyp box length.
+  /// -> 4 bytes have the ASCII characters 'f' 't' 'y' 'p'.
+  /// -> 4 bytes have the ASCII characters 'h' 'e' 'i' 'x'.
+  MagicNumber('image/heic', [
+    0x00,
+    0x00,
+    0x00,
+    0x00,
+    0x66,
+    0x74,
+    0x79,
+    0x70,
+    0x68,
+    0x65,
+    0x69,
+    0x78
+  ], mask: [
+    0x00,
+    0x00,
+    0x00,
+    0x00,
+    0xFF,
+    0xFF,
+    0xFF,
+    0xFF,
+    0xFF,
+    0xFF,
+    0xFF,
+    0xFF
+  ]),
+
+  /// -> 4 bytes indicating the ftyp box length.
+  /// -> 4 bytes have the ASCII characters 'f' 't' 'y' 'p'.
+  /// -> 4 bytes have the ASCII characters 'm' 'i' 'f' '1'.
+  MagicNumber('image/heif', [
+    0x00,
+    0x00,
+    0x00,
+    0x00,
+    0x66,
+    0x74,
+    0x79,
+    0x70,
+    0x6D,
+    0x69,
+    0x66,
+    0x31
+  ], mask: [
+    0x00,
+    0x00,
+    0x00,
+    0x00,
+    0xFF,
+    0xFF,
+    0xFF,
+    0xFF,
+    0xFF,
+    0xFF,
+    0xFF,
+    0xFF
+  ]),
 ];
