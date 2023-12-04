@@ -52,6 +52,8 @@ void main() {
       _expectMimeType('file.toml', 'application/toml');
       _expectMimeType('file.md', 'text/markdown');
       _expectMimeType('file.markdown', 'text/markdown');
+      _expectMimeType('file.heif', 'image/heif');
+      _expectMimeType('file.heic', 'image/heic');
     });
 
     test('unknown-mime-type', () {
@@ -232,6 +234,51 @@ void main() {
         0x41,
         0x56,
         0x45
+      ]);
+      _expectMimeType('file', 'image/heic', headerBytes: [
+        0x00,
+        0x00,
+        0x00,
+        0x18,
+        0x66,
+        0x74,
+        0x79,
+        0x70,
+        0x68,
+        0x65,
+        0x69,
+        0x63,
+        0x00
+      ]);
+      _expectMimeType('file', 'image/heic', headerBytes: [
+        0x00,
+        0x00,
+        0x00,
+        0x18,
+        0x66,
+        0x74,
+        0x79,
+        0x70,
+        0x68,
+        0x65,
+        0x69,
+        0x78,
+        0x00
+      ]);
+      _expectMimeType('file', 'image/heif', headerBytes: [
+        0x00,
+        0x00,
+        0x00,
+        0x18,
+        0x66,
+        0x74,
+        0x79,
+        0x70,
+        0x6D,
+        0x69,
+        0x66,
+        0x31,
+        0x00
       ]);
     });
   });
