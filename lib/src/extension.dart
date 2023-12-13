@@ -28,7 +28,7 @@ final Map<String, String> _preferredExtensionsMap = <String, String>{
 /// If there are multiple extensions for [mimeType], return preferred extension
 /// if defined, or the first occurrence in the map.
 /// If no extension is found, `null` is returned.
-String? extensionFromMimeOrNull(String mimeType) {
+String? extensionFromMime(String mimeType) {
   final mimeTypeLC = mimeType.toLowerCase();
   if (_preferredExtensionsMap.containsKey(mimeTypeLC)) {
     return _preferredExtensionsMap[mimeTypeLC]!;
@@ -37,9 +37,6 @@ String? extensionFromMimeOrNull(String mimeType) {
       .firstWhereOrNull((entry) => entry.value == mimeTypeLC)
       ?.key;
 }
-
-String extensionFromMime(String mimeType, {String? orElse}) =>
-    extensionFromMimeOrNull(mimeType) ?? orElse ?? mimeType;
 
 /// Allow for a user-specified MIME type-extension mapping that overrides the
 /// default.

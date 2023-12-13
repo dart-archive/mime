@@ -24,32 +24,18 @@ void main() {
     });
 
     test('invalid-mime-type', () {
-      expect(extensionFromMime('invalid-mime-type'), 'invalid-mime-type');
-      expect(extensionFromMime('invalid/mime/type'), 'invalid/mime/type');
-
-      expect(
-          extensionFromMime('invalid-mime-type', orElse: 'invalid'), 'invalid');
-      expect(
-          extensionFromMime('invalid/mime/type', orElse: 'invalid'), 'invalid');
-
-      expect(extensionFromMimeOrNull('invalid-mime-type'), isNull);
-      expect(extensionFromMimeOrNull('invalid/mime/type'), isNull);
+      expect(extensionFromMime('invalid-mime-type'), isNull);
+      expect(extensionFromMime('invalid/mime/type'), isNull);
     });
 
     test('unknown-mime-type', () {
-      expect(extensionFromMime('application/to-be-invented'),
-          'application/to-be-invented');
-
-      expect(extensionFromMime('application/to-be-invented', orElse: 'unknown'),
-          'unknown');
-
-      expect(extensionFromMimeOrNull('application/to-be-invented'), isNull);
+      expect(extensionFromMime('application/to-be-invented'), isNull);
     });
   });
 
   group('add-mime-type', () {
     test('new-mime-type', () {
-      expect(extensionFromMimeOrNull('custom/type'), isNull);
+      expect(extensionFromMime('custom/type'), isNull);
       addMimeType('custom/type', 'ct');
       expect(extensionFromMime('custom/type'), equals('ct'));
     });
