@@ -23,10 +23,10 @@ final Map<String, String> _preferredExtensionsMap = <String, String>{
   'video/x-matroska': 'mkv',
 };
 
-/// Lookup file extension for a given MIME type.
+/// The extension for a given MIME type.
 ///
 /// If there are multiple extensions for [mimeType], return preferred extension
-/// if defined, or the first occurrence in the map.
+/// if defined, otherwise an extension chosen by the library.
 /// If no extension is found, `null` is returned.
 String? extensionFromMime(String mimeType) {
   final mimeTypeLC = mimeType.toLowerCase();
