@@ -51,7 +51,6 @@ void _runParseTest(
               expect(data, equals(expectedParts?[part]!.codeUnits));
             }
           }));
-          break;
 
         case TestMode.delayListen:
           futures.add(
@@ -68,7 +67,6 @@ void _runParseTest(
               ),
             ),
           );
-          break;
 
         case TestMode.pauseResume:
           final completer = Completer<void>();
@@ -86,7 +84,6 @@ void _runParseTest(
             completer.complete();
           });
           addTearDown(subscription.cancel);
-          break;
       }
     }, onError: (Object error) {
       // ignore: only_throw_errors

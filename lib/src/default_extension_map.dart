@@ -417,8 +417,9 @@ const Map<String, String> defaultExtensionMap = <String, String>{
   'm3a': 'audio/mpeg',
   'm3u': 'audio/x-mpegurl',
   'm3u8': 'application/vnd.apple.mpegurl',
-  // Source: https://www.rfc-editor.org/rfc/rfc4337#page-3
+  // Source: https://datatracker.ietf.org/doc/html/rfc4337#section-2
   'm4a': 'audio/mp4',
+  'm4b': 'audio/mp4',
   'm4u': 'video/vnd.mpegurl',
   'm4v': 'video/x-m4v',
   'ma': 'application/mathematica',
@@ -434,6 +435,9 @@ const Map<String, String> defaultExtensionMap = <String, String>{
   'mc1': 'application/vnd.medcalcdata',
   'mcd': 'application/vnd.mcd',
   'mcurl': 'text/vnd.curl.mcurl',
+  // https://www.rfc-editor.org/rfc/rfc7763
+  'md': 'text/markdown',
+  'markdown': 'text/markdown',
   'mdb': 'application/x-msaccess',
   'mdi': 'image/vnd.ms-modi',
   'me': 'text/troff',

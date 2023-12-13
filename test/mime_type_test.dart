@@ -48,7 +48,12 @@ void main() {
       _expectMimeType('file.ogg', 'audio/ogg');
       _expectMimeType('file.aiff', 'audio/x-aiff');
       _expectMimeType('file.m4a', 'audio/mp4');
+      _expectMimeType('file.m4b', 'audio/mp4');
       _expectMimeType('file.toml', 'application/toml');
+      _expectMimeType('file.md', 'text/markdown');
+      _expectMimeType('file.markdown', 'text/markdown');
+      _expectMimeType('file.heif', 'image/heif');
+      _expectMimeType('file.heic', 'image/heic');
     });
 
     test('unknown-mime-type', () {
@@ -82,7 +87,7 @@ void main() {
         0x1A,
         0x0A
       ]);
-      _expectMimeType('file.mp4', 'video/mp4', headerBytes: [
+      _expectMimeType('file', 'video/3gpp', headerBytes: [
         0x00,
         0x00,
         0x00,
@@ -95,6 +100,90 @@ void main() {
         0x67,
         0x70,
         0x35
+      ]);
+      _expectMimeType('file.mp4', 'video/mp4', headerBytes: [
+        0x00,
+        0x00,
+        0x00,
+        0x04,
+        0x66,
+        0x74,
+        0x79,
+        0x70,
+        0xFF,
+        0xFF,
+        0xFF,
+        0xFF
+      ]);
+      _expectMimeType('file', 'video/mp4', headerBytes: [
+        0x00,
+        0xF0,
+        0xF0,
+        0xF0,
+        0x66,
+        0x74,
+        0x79,
+        0x70,
+        0x61,
+        0x76,
+        0x63,
+        0x31
+      ]);
+      _expectMimeType('file', 'video/mp4', headerBytes: [
+        0x00,
+        0xF0,
+        0xF0,
+        0xF0,
+        0x66,
+        0x74,
+        0x79,
+        0x70,
+        0x69,
+        0x73,
+        0x6F,
+        0x32
+      ]);
+      _expectMimeType('file', 'video/mp4', headerBytes: [
+        0x00,
+        0xF0,
+        0xF0,
+        0xF0,
+        0x66,
+        0x74,
+        0x79,
+        0x70,
+        0x69,
+        0x73,
+        0x6F,
+        0x6D
+      ]);
+      _expectMimeType('file', 'video/mp4', headerBytes: [
+        0x00,
+        0xF0,
+        0xF0,
+        0xF0,
+        0x66,
+        0x74,
+        0x79,
+        0x70,
+        0x6D,
+        0x70,
+        0x34,
+        0x31
+      ]);
+      _expectMimeType('file', 'video/mp4', headerBytes: [
+        0x00,
+        0xF0,
+        0xF0,
+        0xF0,
+        0x66,
+        0x74,
+        0x79,
+        0x70,
+        0x6D,
+        0x70,
+        0x34,
+        0x32
       ]);
       _expectMimeType('file', 'image/webp', headerBytes: [
         0x52,
@@ -145,6 +234,51 @@ void main() {
         0x41,
         0x56,
         0x45
+      ]);
+      _expectMimeType('file', 'image/heic', headerBytes: [
+        0x00,
+        0x00,
+        0x00,
+        0x18,
+        0x66,
+        0x74,
+        0x79,
+        0x70,
+        0x68,
+        0x65,
+        0x69,
+        0x63,
+        0x00
+      ]);
+      _expectMimeType('file', 'image/heic', headerBytes: [
+        0x00,
+        0x00,
+        0x00,
+        0x18,
+        0x66,
+        0x74,
+        0x79,
+        0x70,
+        0x68,
+        0x65,
+        0x69,
+        0x78,
+        0x00
+      ]);
+      _expectMimeType('file', 'image/heif', headerBytes: [
+        0x00,
+        0x00,
+        0x00,
+        0x18,
+        0x66,
+        0x74,
+        0x79,
+        0x70,
+        0x6D,
+        0x69,
+        0x66,
+        0x31,
+        0x00
       ]);
     });
   });

@@ -150,13 +150,10 @@ class BoundMultipartStream {
       switch (_controllerState) {
         case _controllerStateActive:
           if (_subscription.isPaused) _subscription.resume();
-          break;
         case _controllerStatePaused:
           if (!_subscription.isPaused) _subscription.pause();
-          break;
         case _controllerStateCanceled:
           _subscription.cancel();
-          break;
         default:
           throw StateError('This code should never be reached.');
       }
@@ -214,7 +211,6 @@ class BoundMultipartStream {
             _index = _index - _boundaryIndex;
             _boundaryIndex = 0;
           }
-          break;
 
         case _boundaryEndingCode:
           if (byte == char_code.cr) {
@@ -224,7 +220,6 @@ class BoundMultipartStream {
           } else {
             _expectWhitespace(byte);
           }
-          break;
 
         case _boundaryEndCode:
           _expectByteValue(byte, char_code.lf);
@@ -234,7 +229,6 @@ class BoundMultipartStream {
             _tryPropagateControllerState();
           }
           _state = _headerStartCode;
-          break;
 
         case _headerStartCode:
           _headers = <String, String>{};
@@ -245,7 +239,6 @@ class BoundMultipartStream {
             _headerField.add(_toLowerCase(byte));
             _state = _headerFieldCode;
           }
-          break;
 
         case _headerFieldCode:
           if (byte == char_code.colon) {
@@ -256,7 +249,6 @@ class BoundMultipartStream {
             }
             _headerField.add(_toLowerCase(byte));
           }
-          break;
 
         case _headerValueStartCode:
           if (byte == char_code.cr) {
@@ -266,7 +258,6 @@ class BoundMultipartStream {
             _headerValue.add(byte);
             _state = _headerValueCode;
           }
-          break;
 
         case _headerValueCode:
           if (byte == char_code.cr) {
@@ -274,12 +265,10 @@ class BoundMultipartStream {
           } else {
             _headerValue.add(byte);
           }
-          break;
 
         case _headerValueFoldingOrEndingCode:
           _expectByteValue(byte, char_code.lf);
           _state = _headerValueFoldOrEndCode;
-          break;
 
         case _headerValueFoldOrEndCode:
           if (byte == char_code.sp || byte == char_code.ht) {
@@ -298,7 +287,6 @@ class BoundMultipartStream {
               _state = _headerFieldCode;
             }
           }
-          break;
 
         case _headerEndingCode:
           _expectByteValue(byte, char_code.lf);
@@ -314,7 +302,6 @@ class BoundMultipartStream {
           _headers = null;
           _state = _contentCode;
           contentStartIndex = _index + 1;
-          break;
 
         case _contentCode:
           if (byte == _boundary[_boundaryIndex]) {
@@ -337,12 +324,10 @@ class BoundMultipartStream {
             contentStartIndex ??= _index;
             _boundaryIndex = 0;
           }
-          break;
 
         case _lastBoundaryDash2Code:
           _expectByteValue(byte, char_code.dash);
           _state = _lastBoundaryEndingCode;
-          break;
 
         case _lastBoundaryEndingCode:
           if (byte == char_code.cr) {
@@ -350,7 +335,6 @@ class BoundMultipartStream {
           } else {
             _expectWhitespace(byte);
           }
-          break;
 
         case _lastBoundaryEndCode:
           _expectByteValue(byte, char_code.lf);
@@ -360,7 +344,6 @@ class BoundMultipartStream {
             _tryPropagateControllerState();
           }
           _state = _doneCode;
-          break;
 
         default:
           // Should be unreachable.

@@ -16,12 +16,12 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        sdk: [2.18.0, dev]
+        sdk: [3.0.0, dev]
     steps:
       # These are the latest versions of the github actions; dependabot will
       # send PRs to keep these up-to-date.
-      - uses: actions/checkout@755da8c3cf115ac066823e79a1e1788f8940201b
-      - uses: dart-lang/setup-dart@6a218f2413a3e78e9087f638a238f6b40893203d
+      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
+      - uses: dart-lang/setup-dart@b64355ae6ca0b5d484f0106a033dd1388965d06d
 
       - name: Install dependencies
         run: dart pub get
