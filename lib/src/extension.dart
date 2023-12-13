@@ -33,23 +33,15 @@ String? extensionFromMime(String mimeType) {
   if (_preferredExtensionsMap.containsKey(mimeTypeLC)) {
     return _preferredExtensionsMap[mimeTypeLC]!;
   }
-  return defaultExtensionMap.entries
-      .firstWhereOrNull((entry) => entry.value == mimeTypeLC)
-      ?.key;
+
+  for (final entry in defaultExtensionMap.entries) {
+    if (entry.value == mimeTypeLC) return entry.key;
+  }
+  return null;
 }
 
 /// Allow for a user-specified MIME type-extension mapping that overrides the
 /// default.
 void addMimeType(String mimeType, String extension) {
   _preferredExtensionsMap[mimeType.toLowerCase()] = extension.toLowerCase();
-}
-
-extension _IterableExtension<T> on Iterable<T> {
-  /// The first element satisfying [test], or `null` if there are none.
-  T? firstWhereOrNull(bool Function(T element) test) {
-    for (var element in this) {
-      if (test(element)) return element;
-    }
-    return null;
-  }
 }
