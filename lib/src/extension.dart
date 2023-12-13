@@ -39,9 +39,3 @@ String? extensionFromMime(String mimeType) {
   }
   return null;
 }
-
-/// Allow for a user-specified MIME type-extension mapping that overrides the
-/// default.
-void addMimeType(String mimeType, String extension) {
-  _preferredExtensionsMap[mimeType.toLowerCase()] = extension.toLowerCase();
-}

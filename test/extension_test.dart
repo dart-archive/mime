@@ -32,18 +32,4 @@ void main() {
       expect(extensionFromMime('application/to-be-invented'), isNull);
     });
   });
-
-  group('add-mime-type', () {
-    test('new-mime-type', () {
-      expect(extensionFromMime('custom/type'), isNull);
-      addMimeType('custom/type', 'ct');
-      expect(extensionFromMime('custom/type'), equals('ct'));
-    });
-
-    test('overridden-mime-type', () {
-      expect(extensionFromMime('image/jpeg'), equals('jpg'));
-      addMimeType('image/jpeg', 'jpeg');
-      expect(extensionFromMime('image/jpeg'), equals('jpeg'));
-    });
-  });
 }
