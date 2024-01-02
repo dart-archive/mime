@@ -75,6 +75,20 @@ void main() {
         0x1A,
         0x0A
       ]);
+      _expectMimeType('file.avif', 'image/avif', headerBytes: [
+        0x00,
+        0x00,
+        0x00,
+        0x20,
+        0x66,
+        0x74,
+        0x79,
+        0x70,
+        0x61,
+        0x76,
+        0x69,
+        0x66
+      ]);
       _expectMimeType('file.gif', 'image/jpeg', headerBytes: [
         0xFF,
         0xD8,

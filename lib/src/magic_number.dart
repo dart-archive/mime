@@ -275,6 +275,38 @@ const List<MagicNumber> initialMagicNumbers = [
   ]),
   MagicNumber('model/gltf-binary', [0x46, 0x54, 0x6C, 0x67]),
 
+  /// AVIF format identification
+  /// -> 4 bytes indicating the ftyp box length.
+  /// -> 4 bytes have the ASCII characters 'f' 't' 'y' 'p'.
+  /// -> 4 bytes have the ASCII characters 'a' 'v' 'i' 'f'.
+  MagicNumber('image/avif', [
+    0x00,
+    0x00,
+    0x00,
+    0x00,
+    0x66,
+    0x74,
+    0x79,
+    0x70,
+    0x61,
+    0x76,
+    0x69,
+    0x66
+  ], mask: [
+    0x00,
+    0x00,
+    0x00,
+    0x00,
+    0xFF,
+    0xFF,
+    0xFF,
+    0xFF,
+    0xFF,
+    0xFF,
+    0xFF,
+    0xFF
+  ]),
+
   /// The WebP file format is based on the RIFF document format.
   /// -> 4 bytes have the ASCII characters 'R' 'I' 'F' 'F'.
   /// -> 4 bytes indicating the size of the file
