@@ -3,6 +3,7 @@
 * Update video/mp4 mimeType lookup by header bytes.
 * Add image/heic mimeType lookup by header bytes.
 * Add image/heif mimeType lookup by header bytes.
+* Add image/avif mimeType lookup by header bytes.
 * Add m4b mimeType lookup by extension.
 * Add `text/markdown` mimeType lookup by extension.
 * Require Dart 3.0.0.
