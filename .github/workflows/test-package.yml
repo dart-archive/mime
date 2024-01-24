@@ -16,7 +16,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        sdk: [3.0.0, dev]
+        sdk: [3.2, dev]
     steps:
       # These are the latest versions of the github actions; dependabot will
       # send PRs to keep these up-to-date.
