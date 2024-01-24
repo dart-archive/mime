@@ -1,4 +1,4 @@
-## 1.0.5-wip
+## 1.0.5
 
 * Update `video/mp4` mimeType lookup by header bytes.
 * Add `image/heic` mimeType lookup by header bytes.
