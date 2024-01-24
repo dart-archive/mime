@@ -1,11 +1,11 @@
-## 1.0.5-wip
+## 1.0.5
 
-* Update video/mp4 mimeType lookup by header bytes.
-* Add image/heic mimeType lookup by header bytes.
-* Add image/heif mimeType lookup by header bytes.
+* Update `video/mp4` mimeType lookup by header bytes.
+* Add `image/heic` mimeType lookup by header bytes.
+* Add `image/heif` mimeType lookup by header bytes.
 * Add m4b mimeType lookup by extension.
 * Add `text/markdown` mimeType lookup by extension.
-* Require Dart 3.0.0.
+* Require Dart 3.2.0.
 
 ## 1.0.4
 
