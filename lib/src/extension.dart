@@ -23,7 +23,7 @@ final Map<String, String> _preferredExtensionsMap = <String, String>{
   'video/x-matroska': 'mkv',
 };
 
-/// The extension for a given MIME type.
+/// The file extension for a given MIME type.
 ///
 /// If there are multiple extensions for [mimeType], return preferred extension
 /// if defined, otherwise an extension chosen by the library.
