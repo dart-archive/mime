@@ -30,7 +30,5 @@ final Map<String, String> _defaultMimeTypeMap = {
 /// If there are multiple extensions for [mimeType], return preferred extension
 /// if defined, otherwise an extension chosen by the library.
 /// If no extension is found, `null` is returned.
-String? extensionFromMime(String mimeType) {
-  mimeType = mimeType.toLowerCase();
-  return _defaultMimeTypeMap[mimeType];
-}
+String? extensionFromMime(String mimeType) =>
+    _defaultMimeTypeMap[mimeType.toLowerCase()];
