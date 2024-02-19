@@ -4,8 +4,8 @@
 
 import 'default_extension_map.dart';
 
-/// Add an override for common extensions since different extensions may map
-/// to the same MIME type.
+/// Reverse map of [defaultExtensionMap] with overrides for common extensions
+/// since different extensions may map to the same MIME type.
 final Map<String, String> _defaultMimeTypeMap = {
   for (var entry in defaultExtensionMap.entries) entry.value: entry.key,
 }..addAll({
@@ -28,7 +28,9 @@ final Map<String, String> _defaultMimeTypeMap = {
 /// The file extension for a given MIME type.
 ///
 /// If there are multiple extensions for [mimeType], return preferred extension
-/// if defined, otherwise an extension chosen by the library.
+/// if defined in [_defaultMimeTypeMap], otherwise an extension chosen by the
+/// library.
+///
 /// If no extension is found, `null` is returned.
 String? extensionFromMime(String mimeType) =>
     _defaultMimeTypeMap[mimeType.toLowerCase()];
