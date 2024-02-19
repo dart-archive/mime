@@ -29,13 +29,13 @@ final Map<String, String> _preferredExtensionsMap = <String, String>{
 /// if defined, otherwise an extension chosen by the library.
 /// If no extension is found, `null` is returned.
 String? extensionFromMime(String mimeType) {
-  final mimeTypeLC = mimeType.toLowerCase();
-  if (_preferredExtensionsMap.containsKey(mimeTypeLC)) {
-    return _preferredExtensionsMap[mimeTypeLC]!;
+  mimeType = mimeType.toLowerCase();
+  if (_preferredExtensionsMap.containsKey(mimeType)) {
+    return _preferredExtensionsMap[mimeType]!;
   }
 
   for (final entry in defaultExtensionMap.entries) {
-    if (entry.value == mimeTypeLC) return entry.key;
+    if (entry.value == mimeType) return entry.key;
   }
   return null;
 }
