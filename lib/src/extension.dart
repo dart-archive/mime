@@ -6,22 +6,24 @@ import 'default_extension_map.dart';
 
 /// Add an override for common extensions since different extensions may map
 /// to the same MIME type.
-final Map<String, String> _preferredExtensionsMap = <String, String>{
-  'application/vnd.ms-excel': 'xls',
-  'application/vnd.ms-powerpoint': 'ppt',
-  'image/jpeg': 'jpg',
-  'image/tiff': 'tif',
-  'image/svg+xml': 'svg',
-  'text/calendar': 'ics',
-  'text/javascript': 'js',
-  'text/plain': 'txt',
-  'text/sgml': 'sgml',
-  'text/x-pascal': 'pas',
-  'video/mp4': 'mp4',
-  'video/mpeg': 'mpg',
-  'video/quicktime': 'mov',
-  'video/x-matroska': 'mkv',
-};
+final Map<String, String> _defaultMimeTypeMap = {
+  for (var entry in defaultExtensionMap.entries) entry.value: entry.key,
+}..addAll({
+    'application/vnd.ms-excel': 'xls',
+    'application/vnd.ms-powerpoint': 'ppt',
+    'image/jpeg': 'jpg',
+    'image/tiff': 'tif',
+    'image/svg+xml': 'svg',
+    'text/calendar': 'ics',
+    'text/javascript': 'js',
+    'text/plain': 'txt',
+    'text/sgml': 'sgml',
+    'text/x-pascal': 'pas',
+    'video/mp4': 'mp4',
+    'video/mpeg': 'mpg',
+    'video/quicktime': 'mov',
+    'video/x-matroska': 'mkv',
+  });
 
 /// The file extension for a given MIME type.
 ///
@@ -30,12 +32,5 @@ final Map<String, String> _preferredExtensionsMap = <String, String>{
 /// If no extension is found, `null` is returned.
 String? extensionFromMime(String mimeType) {
   mimeType = mimeType.toLowerCase();
-  if (_preferredExtensionsMap.containsKey(mimeType)) {
-    return _preferredExtensionsMap[mimeType]!;
-  }
-
-  for (final entry in defaultExtensionMap.entries) {
-    if (entry.value == mimeType) return entry.key;
-  }
-  return null;
+  return _defaultMimeTypeMap[mimeType];
 }
