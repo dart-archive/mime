@@ -54,6 +54,9 @@ void main() {
       _expectMimeType('file.markdown', 'text/markdown');
       _expectMimeType('file.heif', 'image/heif');
       _expectMimeType('file.heic', 'image/heic');
+      _expectMimeType('file.vsdx', 'application/vnd.ms-visio.drawing');
+      _expectMimeType('file.msg', 'application/vnd.ms-outlook');
+      _expectMimeType('file.raw', 'image/x-panasonic-raw');
     });
 
     test('unknown-mime-type', () {
