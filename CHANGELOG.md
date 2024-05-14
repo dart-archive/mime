@@ -1,4 +1,4 @@
-## 1.0.5
+## 1.0.6
 
 - Add `application/vnd.ms-visio.drawing` mimeType lookup by extension.
 - Add `image/x-panasonic-raw` mimeType lookup by extension.
