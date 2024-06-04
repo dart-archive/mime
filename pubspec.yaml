@@ -5,6 +5,10 @@ description: >-
   a file extension and file contents.
 repository: https://github.com/dart-lang/mime
 
+topics:
+ - mime
+ - magic-numbers
+
 environment:
   sdk: ^3.2.0
 
