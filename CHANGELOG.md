@@ -1,3 +1,7 @@
+## 1.0.6-wip
+
+* Add `topics` section to `pubspec.yaml`.
+
 ## 1.0.5
 
 * Update `video/mp4` mimeType lookup by header bytes.
