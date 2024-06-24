@@ -7,7 +7,7 @@
 ///
 /// More details, including a list of types, are in the Wikipedia article
 /// [Internet media type](http://en.wikipedia.org/wiki/Internet_media_type).
-library mime;
+library;
 
 export 'src/mime_multipart_transformer.dart';
 export 'src/mime_shared.dart';

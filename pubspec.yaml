@@ -5,17 +5,14 @@ description: >-
   a file extension and file contents.
 repository: https://github.com/dart-lang/mime
 topics:
- - mimetype
  - magic-numbers
- - multipart-form
-
-topics:
  - mime
- - magic-numbers
+ - mimetype
+ - multipart-form
 
 environment:
   sdk: ^3.2.0
 
 dev_dependencies:
-  dart_flutter_team_lints: ^2.0.0
+  dart_flutter_team_lints: ^3.0.0
   test: ^1.16.0
