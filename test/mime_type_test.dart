@@ -54,6 +54,7 @@ void main() {
       _expectMimeType('file.markdown', 'text/markdown');
       _expectMimeType('file.heif', 'image/heif');
       _expectMimeType('file.heic', 'image/heic');
+      _expectMimeType('file.jxl', 'image/jxl');
     });
 
     test('unknown-mime-type', () {

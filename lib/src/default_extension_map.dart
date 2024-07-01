@@ -371,6 +371,7 @@ const Map<String, String> defaultExtensionMap = <String, String>{
   'js': 'text/javascript',
   'json': 'application/json',
   'jsonml': 'application/jsonml+json',
+  'jxl': 'image/jxl',
   'kar': 'audio/midi',
   'karbon': 'application/vnd.kde.karbon',
   'kfo': 'application/vnd.kde.kformula',
