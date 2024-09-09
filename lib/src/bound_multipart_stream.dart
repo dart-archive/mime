@@ -8,7 +8,7 @@ import 'dart:convert';
 import 'char_code.dart' as char_code;
 import 'mime_shared.dart';
 
-/// Bytes for '()<>@,;:\\"/[]?={} \t'.
+/// Bytes for `()<>@,;:\\"/[]?={} \t`.
 const _separators = {
   40, 41, 60, 62, 64, 44, 59, 58, 92, 34, 47, 91, 93, 63, 61, 123, 125, 32, 9 //
 };
@@ -348,7 +348,6 @@ class BoundMultipartStream {
         default:
           // Should be unreachable.
           assert(false);
-          break;
       }
 
       // Move to the next byte.
